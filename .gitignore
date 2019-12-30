@@ -10,3 +10,12 @@ _ext/__pycache__/
 _ext/rubydomain.py
 
 Untitled.ipynb
+_ext/__init__.py
+_ext/test_data.m
+_ext/mat_directives.py
+_ext/mat_lexer.py
+_ext/mat_types.py
+_ext/matlab.py
+_ext/mat_documenters.py
+
+_ext/src/

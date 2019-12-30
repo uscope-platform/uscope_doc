@@ -34,7 +34,7 @@ import sphinx_rtd_theme
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx_rtd_theme", "verilogdomain", 'rubydomain']
+extensions = ["sphinx_rtd_theme", "verilogdomain",'matdomain.matlab', 'sphinx.ext.autodoc']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -64,3 +64,4 @@ html_css_files = [
     'local.css',
 ]
 
+matlab_src_dir = '/home/fils/git/uscope_doc/_ext'

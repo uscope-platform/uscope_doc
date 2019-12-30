@@ -43,6 +43,9 @@ id justo in, pulvinar rhoncus purus.
 Maecenas vel laoreet quam. Vivamus in dignis
 
 
+.. vlog:automodule:: test_module.v
+
+
 .. vlog:module:: test_module
 
     module description
@@ -132,3 +135,13 @@ Maecenas vel laoreet quam. Vivamus in dignis
         .. vlog:param:: test_param_6
 
             param 6 description
+
+
+Example
+-------
+
+.. mat:automodule:: src
+
+.. mat:autofunction:: times_two
+
+.. mat:autofunction:: times_two_napoleon

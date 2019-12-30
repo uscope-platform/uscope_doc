@@ -221,4 +221,5 @@ class VerilogDomain(Domain):
 
 def setup(app):
     app.add_domain(VerilogDomain)
-
+    app.registry.add_documenter('vlog:module', doc.VerilogModuleDocumenter)
+    app.add_directive_to_domain('vlog', 'automodule', doc.VerilogAutodocDirective)
