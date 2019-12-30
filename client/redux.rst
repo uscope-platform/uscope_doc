@@ -47,67 +47,88 @@ Maecenas vel laoreet quam. Vivamus in dignis
 
     module description
 
-    .. vlog:sectbegin:: PORTS
+    .. vlog:sect:: Ports
 
         .. vlog:port:: test_port 1
+            :direction: input
+            :width: 10
 
             port 1 description
 
         .. vlog:port:: test_port 2
+            :direction: output
 
             port 2 description
 
         .. vlog:port:: test_port 3
+            :direction: output
 
             port 3 description
 
-    .. vlog:sectbegin:: PARAMS
+    .. vlog:sect:: Parameters
 
-            .. vlog:port:: test_param_1
+            .. vlog:param:: test_param_1
 
                 param 1 description
 
-            .. vlog:port:: test_param_2
+            .. vlog:param:: test_param_2
 
                 param 2 description
 
-            .. vlog:port:: test_param_3
+            .. vlog:param:: test_param_3
 
                 param 3 description
 
-.. vlog:endmodule:: test_module
+    .. vlog:sect:: Interfaces
+
+            .. vlog:interface:: test_interface_1
+                :type: type
+                :modport: modport
+
+                interface 1 description
+
+            .. vlog:interface:: test_interface_2
+                :modport: modport
+
+                interface 1 description
+
+            .. vlog:interface:: test_interface_3
+                :type: type
+
+                interface 3 description
 
 
 .. vlog:module:: test_module2
 
     module description
 
-    .. vlog:sectbegin:: PORTS
+    .. vlog:sect:: PORTS
 
         .. vlog:port:: test_port 4
+            :direction: inout
 
             port 4 description
 
         .. vlog:port:: test_port 5
+            :direction: output
 
             port 5 description
 
         .. vlog:port:: test_port 6
+            :direction: output
 
             port 6 description
 
-    .. vlog:sectbegin:: PARAMS
+    .. vlog:sect:: PARAMS
 
-        .. vlog:port:: test_param_4
+        .. vlog:param:: test_param_4
 
             param 4 description
 
-        .. vlog:port:: test_param_5
+        .. vlog:param:: test_param_5
 
             param 5 description
 
-        .. vlog:port:: test_param_6
+        .. vlog:param:: test_param_6
 
             param 6 description
-
-.. vlog:endmodule:: test_module2
