@@ -1,16 +1,14 @@
 import re
 import copy
 
-from docutils import nodes
 from docutils.parsers.rst import directives
 
 from sphinx import addnodes
-from sphinx.roles import XRefRole
-from sphinx.locale import l_, _
-from sphinx.domains import Domain, ObjType, Index
+from sphinx.domains import Domain, ObjType
 from sphinx.directives import ObjectDescription
-from sphinx.util.nodes import make_refnode
-from sphinx.util.docfields import Field, GroupedField, TypedField
+from sphinx.util.docfields import TypedField
+
+import verilog_autodoc as doc
 
 
 re_dir = re.compile(r'..\s?vlog:(.*?)\:\s*(.*)')
@@ -25,13 +23,13 @@ class VerilogObject(ObjectDescription):
     }
 
     doc_field_types = [
-        TypedField('parameter', label=l_('Parameters'),
+        TypedField('parameter', label='Parameters',
                    names=('param', 'parameter'),
                    typerolename='param', typenames=('param')),
-        TypedField('port', label=l_('Ports'), rolename='obj',
+        TypedField('port', label='Ports', rolename='obj',
                    names=('port'),
                    typerolename='port', typenames=('port',)),
-        TypedField('interface', label=l_('Interfaces'), rolename='obj',
+        TypedField('interface', label='Interfaces', rolename='obj',
                    names=('interface'),
                    typerolename='interface', typenames=('interface',))
     ]
@@ -47,46 +45,25 @@ class VerilogObject(ObjectDescription):
 
     def handle_signature(self, sig, signode):
         self.clearTmpData  = False
-        if self.objtype == 'endmodule':
-            '''
-            mod_content = self.env.temp_data.get('vlog:top_level_module').children[1]
-            
-            sections = []
-            for idx, val in enumerate(mod_content.children):
-                if val.attributes.get('objtype') == 'sect':
-                    sections.append((idx, copy.deepcopy(val)))
-            for i in sections:
-                title_text = i[1].children[0].rawsource
-                sect = addnodes.nodes.section()
-                inner_sect = addnodes.nodes.section()
-                title = addnodes.nodes.title(title_text,title_text)
-                inner_sect += title
-                inner_sect += i[1].children[1].children
-                inner_sect['ids'] = title_text + '-inner_sect'
-                sect += inner_sect
-                mod_content.children[i[0]] = sect
-            self.clearTmpData  = True
-            raise ValueError
-            '''
+
+        self.current_module = self.env.temp_data.get('vlog:current_module')
+        node = signode
+        signode['objtype'] = self.objtype
+
+        prefix = self.get_signature_prefix(sig) + ' '
+        if prefix is not ' ':
+            node += addnodes.desc_type(prefix,prefix)
+
+        if self.current_module is None:
+            self.env.temp_data['vlog:top_level_module'] = signode.parent
         else:
-            self.current_module = self.env.temp_data.get('vlog:current_module')
-            node = signode
-            signode['objtype'] = self.objtype
+            signode['module'] = self.current_module
+        if self.objtype != ('sect'):
+            node += addnodes.desc_name(sig, sig)
 
-            prefix = self.get_signature_prefix(sig) + ' '
-            if prefix is not ' ':
-                node += addnodes.desc_type(prefix,prefix)
-
-            if self.current_module is None:
-                self.env.temp_data['vlog:top_level_module'] = signode.parent
-            else:
-                signode['module'] = self.current_module
-            if self.objtype != ('sect'):
-                node += addnodes.desc_name(sig, sig)
-
-            postfix = ' ' + self.get_signature_postfix(sig)
-            if postfix is not ' ':
-                node += addnodes.desc_type(postfix,postfix)  
+        postfix = ' ' + self.get_signature_postfix(sig)
+        if postfix is not ' ':
+            node += addnodes.desc_type(postfix,postfix)  
 
 
         return {'type': self.objtype, 'index':sig}
@@ -191,7 +168,6 @@ class VerilogDomain(Domain):
         'param': VerilogParam,
         'interface': VerilogInterface,
         'sect': VerilogStructuralElement,
-        'endmodule': VerilogStructuralElement
     }
 
     initial_data = {
