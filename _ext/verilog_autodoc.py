@@ -1,21 +1,81 @@
+import os, sys, re
 
 from sphinx.ext.autodoc import Documenter
 from sphinx.ext.autodoc.directive import AutodocDirective, DummyOptionSpec, parse_generated_content
 from sphinx.ext.autodoc.directive import process_documenter_options, DocumenterBridge
 from sphinx import version_info
 
+from frontend.file_analyzer import FileAnalyzer
+
+commments_re = re.compile(r'(\/\*\.\.)(.)+?(\.\.\*\/)', re.DOTALL)
+
+re_dir = re.compile(r'..\s?vlog:(.*?)\:\s*(.*)')
 
 class VerilogDocumenter(Documenter):
 
     domain = 'vlog'
     
     def parse_name(self): 
-        a = 0
+        self.fullname = self.name
+        # TODO: remove hardcoding and use setting or something
+        self.include_dirs = ['/home/fils/git/sicdrive-hdl/Components/Common']
+        return True
+
+
+    def extract_comments(self, path):
+        # no object name given
+        if not path:
+            return None
+        if not os.path.isfile(path):
+            return None
+
+        modules = FileAnalyzer(path, self.include_dirs).get_modules_definitions()
+
+
+        comments = []
+        in_comment = False
+
+        with open(path) as f:
+            l = f.readline()
+            last_comment = []
+            for line in f:
+                l = line.rstrip('\n')
+                if '..*/' in l:
+                    comments.append(last_comment)
+                    in_comment = False
+                elif in_comment and l !='':
+                    last_comment.append(l) 
+                elif '/*..' in l:
+                    last_comment = []
+                    in_comment = True
+
+            directives = []
+            for i in comments:
+                last_directives = []
+                for j in i:
+                    res = re_dir.match(j)
+                    if res:
+                        last_directives.append((res.groups()[0], res.groups()[1]))
+                if last_directives:
+                    directives.append(last_directives)                    
+ 
+        return None
 
     
     def import_object(self): 
-        a = 0
-
+        
+        comments = self.extract_comments(self.fullname)
+        
+        parent = None
+        obj = self.module = sys.modules[self.modname]
+        for part in self.objpath:
+            parent = obj
+            obj = self.get_attr(obj, part)
+            self.object_name = part
+        self.parent = parent
+        self.object = obj
+        return True
+        
 
     def add_content(self, more_content, no_docstring = False): 
         a = 0
@@ -59,7 +119,6 @@ class VerilogAutodocDirective(AutodocDirective):
     final_argument_whitespace = True
 
     def run(self):
-        a=0
 
         reporter = self.state.document.reporter
 

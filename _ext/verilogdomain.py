@@ -11,8 +11,6 @@ from sphinx.util.docfields import TypedField
 import verilog_autodoc as doc
 
 
-re_dir = re.compile(r'..\s?vlog:(.*?)\:\s*(.*)')
-
 class VerilogObject(ObjectDescription):
     """
     Description of a general Ruby object.

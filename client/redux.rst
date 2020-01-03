@@ -43,7 +43,7 @@ id justo in, pulvinar rhoncus purus.
 Maecenas vel laoreet quam. Vivamus in dignis
 
 
-.. vlog:automodule:: test_module.v
+.. vlog:automodule:: /home/fils/git/sicdrive-hdl/Components/AdcProcessing/rtl/AdcProcessing.sv
 
 
 .. vlog:module:: test_module

@@ -1,0 +1,122 @@
+start : _EOL* (module_def | compiler_directive | _comment )*
+
+
+//module_def : "module" _WH identifier _WH _EOL* _parameters_list? "(" _EOL* _port_definitions _EOL* ");" _EOL* module_content "endmodule"
+module_def : "module" _WH identifier _WH _EOL* _parameters_list? "(" _EOL* _port_definitions _EOL* ");" _EOL* module_content "endmodule"
+
+//module_content: (definitions | simple_cont_assignment | _comment | defparam | standalone_parameter_def)*
+module_content: (definitions | simple_cont_assignment | _comment | defparam | module_inst | standalone_parameter_def)*
+
+compiler_directive : "`"  /(.)+/ _EOL?
+
+
+ module_inst: identifier _WH? ("#(" _EOL? module_param_con* ")")? _WH?  identifier "(" _EOL? module_port_con* ");" _EOL?
+
+ module_port_con: ("." identifier "(" ( (identifier bus_dim_inst? | _vlog_number) ")"| (expression))  (",")? _EOL? | _comment)
+ module_param_con: ("." identifier "(" identifier bus_dim_inst? ")" (",")? _EOL? | _comment)
+
+//
+// MODULE PORT DEFINITION
+//
+
+_port_definitions : (port | bus | interface | line_comment)*
+
+port : port_direction _WH signal_type _WH identifier ("," _EOL)?
+bus : port_direction _WH signal_type _WH? "signed"? _WH? bus_dim_spec _WH? identifier (","? _EOL?)? _EOL?
+
+interface: identifier "." identifier _WH identifier ("," _EOL)?
+
+port_direction: (/input/ | /output/ | /inout/)
+
+//
+// PARAMETERS DEFINITIONS
+//
+
+_parameters_list:"#(" _EOL* (parameter_def)* ")" _EOL*
+
+parameter_def: _WH? ("parameter")? _WH* identifier _WH* "=" _WH* (_vlog_number | STRING) (",")? (_EOL)?
+standalone_parameter_def: parameter_def* ";" _EOL*
+
+
+//
+// SIGNALS DEFINITIONS
+//
+
+definitions: signal_type  _WH? "signed"? _WH? net_decl_list ";" _EOL
+
+net_decl_list: bus_dim_spec? (_net_decl ","?)*
+
+_net_decl : (packed_net_decl | unpacked_net_decl)
+
+packed_net_decl: _WH* identifier (_WH? "=" _WH? (_vlog_number | expression))? _WH?
+unpacked_net_decl: _WH* identifier _WH? bus_dim_spec (_WH? "=" _WH? unpacked_net_initialization)? _WH?
+unpacked_net_initialization: "{"(_WH? _vlog_number _WH?","? | _WH? _vlog_number _WH?","? )*"}"
+signal_type: (/reg/ | /wire/ | /logic/)
+
+
+//
+// ASSIGNMENTS
+//
+
+simple_cont_assignment: "assign " /[^;]/* ";" _EOL*
+defparam: "defparam " identifier "." identifier _WH* bus_dim_spec? _WH* "=" _WH* (expression | _vlog_number) ";" _EOL*
+
+//
+// UTILITIES
+//
+
+bus_dim_spec : "[" (bus_expression | _vlog_number ) ":" (bus_expression | _vlog_number ) "]"
+bus_dim_inst : "[" bus_expression (":" bus_expression )? "]"
+//
+// NUMBERS
+//
+
+_vlog_number.2 : (vlog_number_hex | vlog_number_dec | vlog_number_oct| vlog_number_bin | integer)
+
+integer : DEC_NUMBER
+
+vlog_number_hex: /-/? DEC_NUMBER?"'""h"HEX_NUMBER
+vlog_number_dec: /-/? DEC_NUMBER?"'""d"DEC_NUMBER
+vlog_number_oct: /-/? DEC_NUMBER?"'""o"OCT_NUMBER
+vlog_number_bin: /-/? DEC_NUMBER?"'""b"BIN_NUMBER
+
+//
+// COMMENTS
+//
+
+_comment : (line_comment|BLOCK_COMMENT)
+
+line_comment : "//" STRING_CONTENT+ _EOL
+BLOCK_COMMENT: /\/\*(?:.|\n)+?\*\// _EOL*
+
+
+//
+// BASIC COMPONENTS
+//
+
+identifier : /[a-zA-Z0-9_$]+/
+
+bus_expression.0: /(\w| |\*|\/|\-|\+|\$|\(|\))+/
+expression: /([a-zA-Z0-9_$]| |\*|\/|\-|\+|\$|\(|\)|\[|\]|\.)+/
+
+STRING : /\"/ STRING_CONTENT /\"/
+STRING_CONTENT :/(?:[a-zA-Z0-9]+| |_|!|\"|#|\$|%|&|'|,|.|\(|\)|\*|\+|`|-|\/|:|;|<|=|>|\?|@|\[|\]|\\|\^|_|{|}|\||~)+/
+
+
+
+FULL_LINE : /(.)+/
+
+_EOL : " "* ( NEWLINE | /\f/)
+
+HEX_NUMBER : /[0-9a-f]+/
+DEC_NUMBER : /[0-9]+/
+OCT_NUMBER : /[0-7]+/
+BIN_NUMBER : /[0-1]+/
+
+_WH : " "+
+
+%import common.NEWLINE
+%import common.LETTER
+%import common.DIGIT
+%import common.NUMBER
+%import common.ESCAPED_STRING

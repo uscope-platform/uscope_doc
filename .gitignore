@@ -19,3 +19,9 @@ _ext/matlab.py
 _ext/mat_documenters.py
 
 _ext/src/
+
+debug.txt
+
+docs_workspace.code-workspace
+
+_ext/matdomain/
