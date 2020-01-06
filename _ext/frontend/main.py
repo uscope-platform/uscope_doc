@@ -19,6 +19,10 @@ class Preprocessor:
         return self.in_generate
 
     def detect_blocks(self, l):
+        if "generate"in l: 
+            return True
+        if "endgenerate"in l: 
+            return True
         if "case" in l:
             return True
         if "begin" in l:
@@ -26,11 +30,8 @@ class Preprocessor:
                 return True
             self.block_count += 1
         if re.match(r'(end |end\n)', l) and self.block_count > 0:
-            if ("endgenerate"in l )or ("endmodule"in l):
-                return False
-            else:
-                self.block_count -= 1
-                return True
+            self.block_count -= 1
+            return True
         return self.block_count > 0
 
     def preprocess(self, content):
@@ -88,17 +89,12 @@ class FileParser:
 
             self.files_content[file] = self.tree_proc.transform(raw_content)
 
-            
-
-            
-  
-    
-
 if __name__ == "__main__":
 
 
 
     parser = FileParser(True)
+    #files = glob.glob('/home/fils/git/sicdrive-hdl/Components/RTCU/rtl/*')
     files = glob.glob('/home/fils/git/sicdrive-hdl/Components/AdcProcessing/rtl/*')
     #files = ['/home/fils/git/sicdrive-hdl/Components/AdcProcessing/rtl/AdcProcessing.sv']
     for f in files:
