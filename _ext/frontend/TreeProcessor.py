@@ -1,5 +1,6 @@
 from lark import Transformer, Tree, lexer, Token, Discard
 from lark.visitors import Discard
+
 import os, glob
 
 
@@ -54,23 +55,30 @@ class TreeProcessor(Transformer):
                 raise Discard
             elif node[0] == None:
                 raise Discard
-            return {'port':node[0],'signal':node[1]}
+        return {**node[0], 'type':'port'}
         
     def module_param_con(self, node):
-        return {'param':node[0],'signal':node[1]}
+        return {**node[0], 'type':'param'}
 
     def bus(self, node):
-        return {'type':'port', 'name':node[3], 'range':node[2] , 'signal_type': node[1], 'direction': node[0]}
+        if len(node) == 4:
+            return {'type':'port', 'name':node[3], 'range':node[2] , 'signal_type': node[1], 'direction': node[0]}
+        else:
+            return {'type':'port', 'name':node[2], 'signal_type': node[1], 'direction': node[0]}
 
     def interface(self, node):
         return {'type':'interface', 'signal_type': node[0], 'modport':node[1], 'name':node[2]}
 
-    def port(self, node):
-        return {'type':'port', 'name':node[2], 'signal_type': node[1], 'direction': node[0]}
-
     def port_direction(self, node):
         return node[0].value
 
+    def module_connection(self,node):
+        if node and node is not[]:
+            if node[0] =='comment':
+                raise Discard
+            elif node[0] == None:
+                raise Discard
+            return {'connection':node[0],'signal':node[1]}
 
     def parameter_def(self, node):
         return {'type': 'param', 'name':node[0], 'value': node[1]}
@@ -241,7 +249,6 @@ class TreeProcessor(Transformer):
         else:
             ret_val['argument'] = {'name': node[1]}
         return ret_val
-
 
     def bus_bit(self, node):
         return{'type': 'dimensions', 'single_bit':True, 'first_bound': node[0]}

@@ -9,17 +9,18 @@ compiler_directive : "`"  /(.)+/ _EOL?
 
 module_inst: _identifier _WH? ("#(" _EOL? module_param_con* ")")? _WH?  _identifier _WH? "(" _EOL? module_port_con* ");" _EOL?
 
-module_port_con: ("." _identifier "(" ( (_identifier _bus_dim_inst? | _vlog_number | expression | _WH)+ ")")  (",")? _EOL? | _comment)
-module_param_con: ("." _identifier "("(_identifier _bus_dim_inst? | _vlog_number | STRING | expression | _WH)+  ")" (",")? _EOL? | _comment)
+module_port_con: module_connection
+module_param_con: module_connection
+
+module_connection: ("." _identifier "(" ( (_identifier _bus_dim_inst? | _vlog_number | expression | _WH)+ ")")  (",")? _EOL? | line_comment)
 
 //
 // MODULE PORT DEFINITION
 //
 
-_port_definitions : (port | bus | interface | line_comment)*
+_port_definitions : ( bus | interface | line_comment)*
 
-port : port_direction _WH signal_type _WH _identifier ("," _EOL)?
-bus : port_direction _WH signal_type _WH? "signed"? _WH? bus_dim_spec _WH? _identifier (","? _EOL?)? _EOL?
+bus : port_direction _WH signal_type _WH? "signed"? _WH? bus_dim_spec? _WH? _identifier (","? _EOL?)? _EOL?
 
 interface: simple_identifier "." simple_identifier _WH simple_identifier ("," _EOL)?
 
@@ -102,7 +103,8 @@ vlog_auto_bin: /-/? "'b"BIN_NUMBER
 
 _comment : (line_comment|BLOCK_COMMENT)
 
-line_comment : "//" STRING_CONTENT* _EOL
+line_comment : "//" /./* _EOL
+
 BLOCK_COMMENT: /\/\*(?:.|\n)+?\*\// _EOL*
 
 //
@@ -133,10 +135,6 @@ bus_expression.0: /(\w| |\*|\/|\-|\+|\$|\(|\))+/
 
 STRING : /\"/ STRING_CONTENT /\"/
 STRING_CONTENT :/(?:[a-zA-Z0-9]+| |_|!|\"|#|\$|%|&|'|,|.|\(|\)|\*|\+|`|-|\/|:|;|<|=|>|\?|@|\[|\]|\\|\^|_|{|}|\||~)+/
-
-
-
-FULL_LINE : /(.)+/
 
 _EOL : " "* ( NEWLINE | /\f/)
 

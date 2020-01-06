@@ -1,8 +1,7 @@
-import argparse, pickle, glob, os, re
+import argparse, pickle, glob, os, re, hashlib,sys
 from TreeProcessor import TreeProcessor
 from lark import Lark, Transformer, Tree
-
-
+import pandas as pd
 
 class Preprocessor:
     def __init__(self, debug = False):
@@ -55,39 +54,61 @@ class Preprocessor:
 
         return merged_data
 
+
+
 class FileParser:
-    def __init__(self,debug = False):
+
+    def __init__(self,debug = False, parser='earley'):
         self.preproc = Preprocessor(debug=debug)
         self.tree_proc = TreeProcessor()
+        try:
+            with open('/tmp/sphinx_vlog_data.pickle', 'rb') as f:
+                self.cache = pickle.load(f)
+        except:
+            self.cache = {}
+
+
         with open('/home/fils/git/uscope_doc/_ext/frontend/grammar.lark') as f:
             grammar = f.read()
 
-        self.parser = Lark(grammar, parser='earley', start='start',)
-
-        # Remove indentation as it's useless and  a major PITA to work with
-        
-        self.files_content = {}
+        self.parser = Lark(grammar, parser=parser, start='start')
+  
+        self.files_content = []
         self.debug = debug
 
-    def parse_file(self, file):
-        
+    def parse_file(self, file):        
         with open(file) as f:
             if self.debug:
                 print(file)
             content = f.readlines()
             processed_content = self.preproc.preprocess(content)
+
             if self.debug:
                 print("DONE PREPROCESSING")
-
             
+            content_hash = hashlib.sha256(processed_content.encode()).hexdigest() 
+            if file in self.cache:
+                if self.cache[file]['hash'] == content_hash:
+                    return self.cache[file]
+      
             try:
                 raw_content = self.parser.parse(processed_content)
             except Exception as e:
                 print(f'\nParsing error in file: {file}')
                 print(e)
-                exit(1)
+                exit(1)  
+            self.files_content.append({'hash':content_hash, 'content':self.tree_proc.transform(raw_content), 'filename':file})
+    
+    def cache_files(self):
+        cache = {}
+        
+        for i in self.files_content:
+            cache[i['filename']] = i
+        with open('/tmp/sphinx_vlog_data.pickle', 'wb') as f:
+            # Pickle the 'data' dictionary using the highest protocol available.
+            pickle.dump(cache, f, pickle.HIGHEST_PROTOCOL)
 
-            self.files_content[file] = self.tree_proc.transform(raw_content)
+
 
 if __name__ == "__main__":
 
@@ -95,9 +116,12 @@ if __name__ == "__main__":
 
     parser = FileParser(True)
     #files = glob.glob('/home/fils/git/sicdrive-hdl/Components/RTCU/rtl/*')
-    files = glob.glob('/home/fils/git/sicdrive-hdl/Components/AdcProcessing/rtl/*')
-    #files = ['/home/fils/git/sicdrive-hdl/Components/AdcProcessing/rtl/AdcProcessing.sv']
+    #files = glob.glob('/home/fils/git/sicdrive-hdl/Components/AdcProcessing/rtl/*')
+    files = ['/home/fils/git/sicdrive-hdl/Components/AdcProcessing/rtl/AdcProcessing.sv']
     for f in files:
         parser.parse_file(f)
-    
+    parser.cache_files()
+
+
+
     a = 0
