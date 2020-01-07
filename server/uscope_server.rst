@@ -1,44 +1,134 @@
+.. _uscope-server:
 
-================
-µScope Server
-================
+==========================
+µScope Application Server
+==========================
+
+The µScope Applicatio server is the main component of the whole server infrastructure, 
+it is serves as the main REST gateway where a series of web API allow the client to directly
+control the whole hardware platform.
+
+---------------------------
+web API backends
+---------------------------
+
+The server, written in python, uses the `Flask framework <https://www.palletsprojects.com/p/flask/>`_,
+along with the `flask-restful <https://flask-restful.readthedocs.io/en/latest/>`_ extension,
+to handle all the low level networking details, while various `blueprints <https://flask.palletsprojects.com/en/1.1.x/blueprints/>`_
+implement all the required API
+
+^^^^^^^^^^^^^^^^^^^^
+Application API
+^^^^^^^^^^^^^^^^^^^^
+This API manages the whole application lifecycle, from creation, through edit and use up to its removal from the server.
+
+**ENDPOINTS:**
+
+.. http:get:: /application/remove/(string:application_name)
+
+    Remove the application named `application_name` from the database.
+
+.. http:get:: /application/all/specs
+
+    returns all the applications present in the database
+
+.. http:get:: /application/set/(string:application_name)
+
+    set the application named `application_name` as the current one.
+
+.. http:get:: /application/digest
+
+    Return a digest that specifies the version of the application database
+
+.. http:post:: /application/add
+
+    Add the application passed as a parameter to the database
 
 
+^^^^^^^^^^^^^^^^^^^^
+Plot API
+^^^^^^^^^^^^^^^^^^^^
+This API implements the on screen oscilloscope feature, 
 
-lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac mollis
-lectus. Aliquam purus turpis, semper eget tincidunt vel, mattis quis
-ligula. Sed viverra elit eu libero accumsan, sed faucibus ante sagittis.
-Morbi eget neque tincidunt, mattis ante vel, lobortis erat. Morbi nec magna
-neque. Nulla maximus sodales tellus, sit amet accumsan ex efficitur sed.
-Fusce luctus eros ac faucibus tristique. Integer tincidunt erat non consequat
-venenatis. Donec gravida, est non sollicitudin euismod, mauris nisl bibendum
-ipsum, a cursus nisl metus sit amet mauris. Praesent non pellentesque ipsum.
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus.
+**ENDPOINTS:**
 
-Vivamus non ultrices diam. Pellentesque sed ligula neque. Aliquam ultricies
-lacus nec tellus molestie, et scelerisque sapien volutpat. Duis vel varius
-magna. Aliquam auctor vitae nisi in porttitor. Fusce cursus ultricies ero
-non iaculis. Nulla porta tempus pulvinar. Nullam neque dolor, lacinia ac
-dolor quis, maximus commodo sapien. Quisque nec nunc augue. Sed orci nunc,
-molestie eu rutrum convallis, porta eu libero. Phasellus quis iaculis lorem,
-nec sollicitudin leo.
+.. http:get:: /plot/capture
 
-Sed placerat nisl non massa pharetra, nec vulputate leo egestas. Fusce vi
-molestie tortor, fermentum aliquam leo. Aliquam luctus neque ac pellentesque
-tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-rutrum euismod pharetra. In hendrerit fringilla suscipit. Cras ut lacus
-consectetur, lacinia massa a, congue urna. Curabitur venenatis erat volutpat
-commodo vehicula. Etiam consequat lectus arcu, euismod euismod lectus rhoncus
-eu. In hac habitasse platea dictumst. Maecenas faucibus eros risus.
-Pellentesque et felis ipsum. Sed vel dolor tempor dolor blandit consequat.
+    Start a single capture run on the enabled channels
 
-Sed malesuada eros quis tortor tempor tincidunt. Fusce accumsan, nisl ut porta
-lacinia, lorem magna ullamcorper turpis, vitae aliquet lorem est quis velit.
-Maecenas sed pulvinar turpis. Donec lobortis tincidunt pharetra. Donec sed
-sollicitudin nunc, rhoncus vehicula lacus. Integer placerat, nulla vel molestie
-mollis, elit sem porttitor dolor, nec faucibus lacus metus quis mi. Sed eu
-vestibulum ligula. Cras viverra cursus orci. In elit nulla, imperdiet
-id justo in, pulvinar rhoncus purus.
+.. http:post:: /plot/capture
 
-Maecenas vel laoreet quam. Vivamus in dignis
+    return the previously captured data
+
+.. http:get:: /plot/channels/specs
+
+    returns the specs of the currently available channels
+
+.. http:post:: /plot/channels/params
+
+    Modify channel parameters
+
+.. http:get:: /plot/channels/data
+
+    returns the last set of acquired data
+
+^^^^^^^^^^^^^^^^^^^^
+Registers API
+^^^^^^^^^^^^^^^^^^^^
+This API is used to access the memory mapped registers on the programmable logic part of the SoC.
+
+**ENDPOINTS:**
+
+api.add_resource(RegisterValue, '') GP
+api.add_resource(RegisterDescriptions, '') G
+
+
+.. http:get:: /registers/(string:peripheral)/value
+
+    Reads the value of a register, specified in the parameters from the supplied `peripheral`
+
+.. http:post:: /registers/(string:peripheral)/value
+    Writes the value of a register, specified in the parameters from the supplied `peripheral`
+
+.. http:get:: /registers/(string:peripheral)/descriptions
+
+    Returns the info of the registers of the specified `peripheral`
+
+.. http:get:: /registers/all_peripheral/descriptions
+
+    Returns the info of all the registers in all the peripherals
+
+.. http:post:: /registers/bulk_write
+
+    Writes specified values to multiple registers in multiple peripherals
+
+.. http:get:: /registers/digest
+
+    Returns an Hash of all the current peripheral specifications
+
+^^^^^^^^^^^^^^^^^^^^
+Peripherals API
+^^^^^^^^^^^^^^^^^^^^
+This API manages the manages the peripherals definitions, allowing their creation update and removal.
+
+**ENDPOINTS:**
+
+.. http:post:: /tab_creator/diagram
+
+    Upload the diagram for a peripheral
+
+.. http:post:: /tab_creator/create_peripheral
+
+    Add a peripheral, specified as a parameter, to the database
+
+.. http:get:: /tab_creator/remove_peripheral/(string:peripheral)
+
+    Removes the specified `peripheral` from the database
+
+------------------------
+Data store and Redis db
+------------------------
+
+-------------
+Deployment
+------------

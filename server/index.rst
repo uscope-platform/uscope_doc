@@ -2,7 +2,16 @@
 µScope platform server
 =======================
 
+The µScope platform server, referred as server from now on, is the component
+of the stack that is responsible for all the high level interactions between
+the µCube control platform and the outside world, and in particular it is the
+component in charge of the human machine interface (HMI). For easier 
+deployability the whole server infrastructure is implemented in the processor
+system od the Zynq SoC and it interfaces the outside world through standard 
+Ethernet connectivity.
+
 .. image:: ../assets/server_structure.svg
+
 
 .. _server_layer:
 
@@ -12,7 +21,6 @@
 
     os_overview
     uscope_driver
-    redis_db
     uscope_server
     nginx_frontend
 
