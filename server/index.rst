@@ -22,5 +22,4 @@ Ethernet connectivity.
     os_overview
     uscope_driver
     uscope_server
-    nginx_frontend
 

@@ -41,9 +41,9 @@ is complete, The data is transmitted to the client in bulk. This intermediate
 step, while adding complexity is necessary as the full stack is not fast enough
 to handle capture at higher speeds.
 
--------------------------
+------------------------------
 Application server Interfaces
--------------------------
+------------------------------
 
 The driver communicates with the application server through two distinct interfaces.
 Message passing through a couple of `Redis <https://redis.io/>`_ 

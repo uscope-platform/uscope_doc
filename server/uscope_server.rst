@@ -8,6 +8,28 @@ The µScope Applicatio server is the main component of the whole server infrastr
 it is serves as the main REST gateway where a series of web API allow the client to directly
 control the whole hardware platform.
 
+------------------------
+Data store and Redis db
+------------------------
+
+The Application server legerages a Redis database instance. All necessary data, including custom peripheral and application definitions are
+stored in the logical database #2 as hashes, and persisted to non volatile memory. All the other logical databases, are treated as simple key
+value stores and used to synchronize informations between various server threads/processes.
+To decouple the server businnes logic from the details of the database implementation, all the accesses to it are done through the DataStore
+module, to minimize the impact of a future database change on the rest of the server code.
+
+
+---------------
+Nginx frontend
+---------------
+
+The topmost component of the server software stack is an instance of the `Nginx <https://www.nginx.com/>`_ server.
+On one hand, if necessary, it can serve all the necessary static files, in order to achieve fully self contained 
+operation without the need for any installation procedure on the client side. On the other, it acts as a reverse 
+proxy that allows the use of a separate API server while still complying with the same origin policy, removing
+the need for cross origin resource sharing (CORS).
+
+
 ---------------------------
 web API backends
 ---------------------------
@@ -15,7 +37,8 @@ web API backends
 The server, written in python, uses the `Flask framework <https://www.palletsprojects.com/p/flask/>`_,
 along with the `flask-restful <https://flask-restful.readthedocs.io/en/latest/>`_ extension,
 to handle all the low level networking details, while various `blueprints <https://flask.palletsprojects.com/en/1.1.x/blueprints/>`_
-implement all the required API
+implement all the required API. As `advised <https://flask.palletsprojects.com/en/1.1.x/deploying/>`_ from the flask team, the server
+has been deployed on top of an instance of the gunicorn WSGI HTTP server to allow multiple concurrent requests.
 
 ^^^^^^^^^^^^^^^^^^^^
 Application API
@@ -88,6 +111,7 @@ api.add_resource(RegisterDescriptions, '') G
     Reads the value of a register, specified in the parameters from the supplied `peripheral`
 
 .. http:post:: /registers/(string:peripheral)/value
+
     Writes the value of a register, specified in the parameters from the supplied `peripheral`
 
 .. http:get:: /registers/(string:peripheral)/descriptions
@@ -124,11 +148,3 @@ This API manages the manages the peripherals definitions, allowing their creatio
 .. http:get:: /tab_creator/remove_peripheral/(string:peripheral)
 
     Removes the specified `peripheral` from the database
-
-------------------------
-Data store and Redis db
-------------------------
-
--------------
-Deployment
-------------
