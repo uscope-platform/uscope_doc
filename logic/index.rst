@@ -10,7 +10,8 @@ FPGA logic
     :maxdepth: 2
     :caption: FPGA layer
 
-    bus
+    Interconnect
+    simplebus
     communication
     acquisition_signal_processing
     controls

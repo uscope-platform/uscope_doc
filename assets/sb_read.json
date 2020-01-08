@@ -1,0 +1,9 @@
+{signal: [
+  {name: 'clk',          wave: 'p........'},
+  {name: 'write_strobe', wave: '0........'},
+  {name: 'read_strobe',  wave: '0..10....'},
+  {name: 'address',      wave: 'x..2x....'},
+  {name: 'read_data',    wave: 'x....2x..'},
+  {name: 'write_data',   wave: 'x........'},
+  {name: 'ready',        wave: '1...0.1..'},
+]}
