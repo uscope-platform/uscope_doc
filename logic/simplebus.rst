@@ -42,16 +42,23 @@ customizable thanks to the parametrised width
 AXI stream prioritised FIFO
 ----------------------------
 
-lorem ipsum
+This module allows to merge two different AXI streams of different priorities, while also completely mitigating the risk of transaction drops
+due to conflicts between transactions, thanks to internal FIFOs on both inputs. The depth of whom is parametrised to allow the trade off between
+area and flexibility.
+The module will always privilege high priority transactions in spite anything else, it will thus empty the HP fifo before starting on the LP one.
+no amount of round robin arbitration between inputs is performed, thus enough downstream bandwidth should be available if starvation of the LP
+input is to be avoided.
 
 -----------------
 APB to Simplebus
 -----------------
 
-lorem ipsum
+This module provides a simple combinatorial, bidirectional bridge between an APB master and a Simplebus slave interface.
 
 ------------
 DMA manager
 ------------
 
-lorem ipsum
+This module can be used to initialize and operate a Xilinx AXI DMA IP in order to allow completely autonomous data trasnfer from an AXI stream,
+to the main external system memory (DDR3 DRAM) without any involvement by the processor cores, that are only notified of a completed transaction
+through an interrupt.
