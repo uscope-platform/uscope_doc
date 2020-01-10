@@ -25,3 +25,5 @@ debug.txt
 docs_workspace.code-workspace
 
 _ext/matdomain/
+
+_ext/frontend/__pycache__/

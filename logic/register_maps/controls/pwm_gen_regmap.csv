@@ -1,0 +1,49 @@
+Register name,Field Name,offset (#bit),Description
+G_CTRL,Prescaler,0x0 (2:0),Control the prescaler value
+G_CTRL,Timebase Enable,0x0 (3),Enables the timebase prescaler output
+G_CTRL,Enable External Timebase,0x0 (4),Switches between prescaler output and external timebase
+G_CTRL,Global counter run,0x0 (5),Start all the counters
+G_CTRL,Counters Synchronization,0x0 (6),resynchronize all the counters
+G_CTRL,Default outputs state,0x0 (18:7),Value on the pwm outputs when the pwm is not running
+,,,
+CH0_THR_LOW_0,value,0x4 (31:0),Low threshold of the window comparator for pwm 0 of chain 0
+CH0_THR_LOW_1,value,0x8 (31:0),Low threshold of the window comparator for pwm 1 of chain 0
+CH0_THR_LOW_2,value,0xC (31:0),Low threshold of the window comparator for pwm 2 of chain 0
+CH0_THR_HIGH_0,value,0x10 (31:0),High threshold of the window comparator for pwm 0 of chain 0
+CH0_THR_HIGH_1,value,0x14 (31:0),High threshold of the window comparator for pwm 1 of chain 0
+CH0_THR_HIGH_2,value,0x18 (31:0),High threshold of the window comparator for pwm 2 of chain 0
+CH0_DT_0,value,0x1C (31:0),Deadtime for pwm 0 of chain 0
+CH0_DT_1,value,0x20 (31:0),Deadtime for pwm 1 of chain 0
+CH0_DT_2,value,0x24 (31:0),Deadtime for pwm 2 of chain 0
+CH0_CNT_START,value,0x28 (31:0),Chain 0 counter start value
+CH0_CNT_STOP,value,0x2C (31:0),Chain 0 counter stop value
+CH0_PH_SH,value,0x30 (31:0),Chain 0 phase shift
+CH0_OUT_EN,enable output 0-3,0x34 (1:0),Enable outputs 0 and 3 of chain 0 (pwm 0)
+CH0_OUT_EN,enable output 1-4,0x34 (3:2),Enable outputs 1 and 4 of chain 0 (pwm 1)
+CH0_OUT_EN,enable output 2-5,0x34 (5:4),Enable outputs 2 and 5 of chain 0 (pwm 2)
+CH0_DT_EN,enable deadtime 0-3,0x38 (1:0),Enable deadtime between output 0 and 3
+CH0_DT_EN,enable deadtime 1-4,0x38 (3:2),Enable deadtime between output 1 and 4
+CH0_DT_EN,enable deadtime 2-5,0x38 (5:4),Enable deadtime between output 2 and 5
+CH0_CTRL,counter mode,0x3C (2:0),"Select between UP, DOWN and UP-DOWN counting"
+CH0_CTRL,duty cycle mode,0x3C (3),Enable duty cycle mode (UP-DOWN counting with duty cycle controlled by a single register write)
+,,,
+CH1_THR_LOW_0,value,0x4 (31:0),Low threshold of the window comparator for pwm 0 of chain 0
+CH1_THR_LOW_1,value,0x8 (31:0),Low threshold of the window comparator for pwm 1 of chain 0
+CH0_THR_LOW_2,value,0xC (31:0),Low threshold of the window comparator for pwm 2 of chain 0
+CH0_THR_HIGH_0,value,0x10 (31:0),High threshold of the window comparator for pwm 0 of chain 0
+CH0_THR_HIGH_1,value,0x14 (31:0),High threshold of the window comparator for pwm 1 of chain 0
+CH0_THR_HIGH_2,value,0x18 (31:0),High threshold of the window comparator for pwm 2 of chain 0
+CH0_DT_0,value,0x1C (31:0),Deadtime for pwm 0 of chain 0
+CH0_DT_1,value,0x20 (31:0),Deadtime for pwm 1 of chain 0
+CH0_DT_2,value,0x24 (31:0),Deadtime for pwm 2 of chain 0
+CH0_CNT_START,value,0x28 (31:0),Chain 0 counter start value
+CH0_CNT_STOP,value,0x2C (31:0),Chain 0 counter stop value
+CH0_PH_SH,value,0x30 (31:0),Chain 0 phase shift
+CH0_OUT_EN,enable output 0-3,0x34 (1:0),Enable outputs 0 and 3 of chain 0 (pwm 0)
+CH0_OUT_EN,enable output 1-4,0x34 (3:2),Enable outputs 1 and 4 of chain 0 (pwm 1)
+CH0_OUT_EN,enable output 2-5,0x34 (5:4),Enable outputs 2 and 5 of chain 0 (pwm 2)
+CH0_DT_EN,enable deadtime 0-3,0x38 (1:0),Enable deadtime between output 0 and 3
+CH0_DT_EN,enable deadtime 1-4,0x38 (3:2),Enable deadtime between output 1 and 4
+CH0_DT_EN,enable deadtime 2-5,0x38 (5:4),Enable deadtime between output 2 and 5
+CH0_CTRL,counter mode,0x3C (2:0),"Select between UP, DOWN and UP-DOWN counting"
+CH0_CTRL,duty cycle mode,0x3C (3),Enable duty cycle mode (UP-DOWN counting with duty cycle controlled by a single register write)

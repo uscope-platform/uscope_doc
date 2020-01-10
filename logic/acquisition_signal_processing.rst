@@ -35,6 +35,11 @@ ADC post-processing
 
         - **simple_bus**: Simplebus slave Interface
 
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/acquisition_signal_processing/adc_processing_regmap
+
 
 
 ----------

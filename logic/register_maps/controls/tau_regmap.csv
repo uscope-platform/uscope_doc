@@ -1,0 +1,4 @@
+Register name,Field Name,offset (#bit),Description
+CTRL,Direct chained mode enable,0x0 (1),Enable the chaining of clarke and park transforms
+CTRL,Inverse chained mode enable,0x0 (2),Enable the chaining of clarke and park inverse transforms
+CTRL,soft reset,0x0 (3),soft reset of the module

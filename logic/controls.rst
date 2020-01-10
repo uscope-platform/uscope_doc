@@ -8,12 +8,22 @@ Control peripherals
 PWM Generator
 --------------
 
-lorem ipsum
-
-
     .. image:: ../assets/PwmGenerator.svg
 
     |
+
+    This module implements an advanced and higly customizable pwm generator. Its operations are governed through a
+    Simplebus slave interface offered by the Control unit. This block contains a parametrized number of a PWM chained
+    sub-module. each one of them contains a single independent counter feeding a bank of comparators. Allowing to easily
+    generate both thraditional and multi-carrier set of pwm signals. The first component of this block is a prescaler that enables
+    the generation of a timebase signal with close to an arbitrary frequency. This signal is then fed to the counters; they generate
+    the carrier signal used in the modulation (both trianular and sawtooth waveforms can be configured) of the desired amplitude.
+    A phase shift between carriers can also be introduced by staggering the enable singals. The output of the counters is
+    then fed to a bank of comparator pairs  (window comparators), each one is responsible for the production of a single PWM
+    signal, the complementary signal generation with automatic dead-time insertion is available.
+
+    For more advanced modulation techniques such as variable frequency carriers, for spread spectrum operation or pulse frequency modulation.
+
 
     **PARAMETERS**
 
@@ -36,6 +46,12 @@ lorem ipsum
         - **sb_read_data**: Simplebus slave read data signal
         - **timebase**: Timebase output
         - **pwm_out**: PWM signals output
+
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/controls/pwm_gen_regmap
+
 
 
 .. _enable_gen:
@@ -76,13 +92,56 @@ Enable Generator
         - **enable_out_1**: Generated Enable signal #1
         - **enable_out_n**: Generated Enable signal #n
 
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/controls/enable_generator_regmap
+
 .. _tau:
 
 ----------------------------
 Transform Acceleration Unit
 ----------------------------
 
-lorem ipsum
+    .. image:: ../assets/TAU.svg
+
+    |
+
+    This module Implements the standard abc to dq transforms used in field oriented control. A look up table in Block RAM
+    contains the first quardrant (0 to π/2 radians) of the sine function, all the other values are derived from it thanks
+    to periodicity and other trigonometric identities. The transforms can be chained together in the standard fashion or
+    used independently, this behaviour is selectable through the Simplebus interface of the Control unit.
+
+    **PARAMETERS**
+
+        - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x43C00000
+
+    **INPUTS**
+
+        - **clock**: Main clock input
+        - **reset**: Active low synchronous reset input
+        - **theta**: Angle input
+        - **clarke_in**: abc -> αβ input
+        - **park_in**: αβ -> dq input
+        - **inverse_clarke_in**: αβ -> abc input
+        - **inverse_park_in**: dq -> αβ input
+
+    **OUTPUTS**
+
+        - **clarke_out**: abc -> αβ output
+        - **park_out**: αβ -> dq output
+        - **inverse_clarke_out**: αβ -> abc output
+        - **inverse_park_out**: dq -> αβ output
+
+    **INTERFACES**
+
+        - **spb**: Simplebus slave Interface
+
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/controls/tau_regmap
+
 
 .. _pid:
 
@@ -128,6 +187,11 @@ PID
         - **out_valid**: output AXI Stream master valid signal
         - **PID_out**: output AXI Stream master data signal
 
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/controls/pid_regmap
+
 
 .. _gpio:
 
@@ -165,3 +229,7 @@ GPIO
         - **gpio_o**: GPIO output port
 
 
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/controls/gpio_regmap

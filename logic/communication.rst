@@ -62,6 +62,12 @@ I2C
 
         -Silicon labs Si5351 clock generator IC
 
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/communications/I2C_regmap
+
+
 ----
 SPI
 ----
@@ -122,6 +128,13 @@ SPI
 
         - Analog Devices AD2S1210 Resolver to digital converter
         - Analog Devices LTC2313 Analog to Digtal converter
+
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/communications/SPI_regmap
+
+
 
 -----
 RTCU
