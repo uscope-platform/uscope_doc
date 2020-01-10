@@ -6,10 +6,20 @@
 
 .. _client_layer:
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Client Layer
 
-    redux
+    .. toctree::
+        :maxdepth: 2
+        :caption: User Documentation
 
+        Applications
+        Peripherals
+
+
+    .. toctree::
+        :maxdepth: 2
+        :caption: Internal architecture
+
+
+        react_components
+        redux_store
 
