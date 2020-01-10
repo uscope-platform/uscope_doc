@@ -1,0 +1,24 @@
+Register name,Field Name,offset (#bit),Description
+CMP_1,slow threshold 1,0x0 (15:0),Slow comparator threshold low (Static) low falling edge (hysteresis)
+CMP_1,fast threshold 1,0x0 (31:16),Fast comparator threshold low (Static) low falling edge (hysteresis)
+CMP_2,slow threshold 2,0x4 (15:0),Slow comparator threshold low raising edge (hysteresis)
+CMP_2,fast threshold 2,0x4 (31:16),Fast comparator threshold low raising edge (hysteresis)
+CMP_3,slow threshold 3,0x8 (15:0),Slow comparator threshold high falling edge (hysteresis)
+CMP_3,fast threshold 3,0x8 (31:16),Fast comparator threshold high falling edge (hysteresis)
+CMP_4,slow threshold 4,0xC (15:0),Slow comparator threshold high (Static) high rising edge (hysteresis)
+CMP_4,fast threshold 4,0xC (31:16),Fast comparator threshold high (Static) high rising edge (hysteresis)
+TAP_A,FIR filter tap 1,0x10 (15:0),Tap #1 for FIR Filter
+TAP_A,FIR filter tap 2,0x10 (31:16),Tap #2 for FIR Filter
+TAP_B,FIR filter tap 3,0x14 (15:0),Tap #3 for FIR Filter
+TAP_B,FIR filter tap 4,0x14 (31:16),Tap #4 for FIR Filter
+TAP_C,FIR filter tap 5,0x18 (15:0),Tap #5 for FIR Filter
+TAP_C,FIR filter tap 6,0x18 (31:16),Tap #6 for FIR Filter
+TAP_D,FIR filter tap 7,0x1C (15:0),Tap #7 for FIR Filter
+TAP_D,FIR filter tap 8,0x1C (31:16),Tap #8 for FIR Filter
+TAP_E,FIR filter tap 9,0x20 (15:0),Tap #9 for FIR Filter
+CAL_COEFF,Reserved,0x24 (15:0),Reserved for future use
+CAL_COEFF,Offset correction,0x24 (31:16),Offset correction calibration coefficient
+CTRL,Bypass FIR filter,0x28 (0),Bypass fir filter
+CTRL,latch mode,0x28 (2:1),Select comparator modes (static latching or with hysteresis)
+CTRL,clear latch,0x28 (4:3),clear the comparator latches in static mode
+CTRL,calibrator output shift,0x28 (7:5),number of bit shifts at the calibrator output

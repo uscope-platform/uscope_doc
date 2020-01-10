@@ -1,3 +1,6 @@
 .wy-side-nav-search {
- background-color: #e9ba7e;   
+    background-color: #e9ba7e;
 }
+.wy-nav-content {
+    max-width: none;
+ }

@@ -1,0 +1,12 @@
+Register name,Field Name,offset (#bit),Description
+RSVD,reserved,0x0 (31:0),reserved
+KP,value,0x4 (31:0),PID proportional action constant nominator
+KI,value,0x8 (31:0),PID integral action constant nominator
+KD,value,0xC (31:0),PID derivative action constant nominator
+OUT_SAT_P,value,0x10 (31:0),Positive output saturation
+OUT_SAT_N,value,0x14 (31:0),Negative output saturation
+INT_SAT_P,value,0x18 (31:0),Positive integral saturation
+INT_SAT_N,value,0x1C (31:0),Negative integral saturation
+DEN,Kp denominator,0x20 (7:0),PID proportional action constant denominator exponent
+DEN,Ki denominator,0x20 (15:8),PID integral action constant denominator exponent
+DEN,Kd denominator,0x20 (23:16),PID derivative action constant denominator exponent
