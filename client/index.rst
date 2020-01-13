@@ -22,6 +22,7 @@ definitions can specify a fixed interface foundation that decouples the two comp
 
         Applications
         Peripherals
+        scripting
 
 
     .. toctree::
