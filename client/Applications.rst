@@ -1,44 +1,34 @@
 
+.. _applications:
+
 ================
 Applications
 ================
 
 
-lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac mollis
-lectus. Aliquam purus turpis, semper eget tincidunt vel, mattis quis
-ligula. Sed viverra elit eu libero accumsan, sed faucibus ante sagittis.
-Morbi eget neque tincidunt, mattis ante vel, lobortis erat. Morbi nec magna
-neque. Nulla maximus sodales tellus, sit amet accumsan ex efficitur sed.
-Fusce luctus eros ac faucibus tristique. Integer tincidunt erat non consequat
-venenatis. Donec gravida, est non sollicitudin euismod, mauris nisl bibendum
-ipsum, a cursus nisl metus sit amet mauris. Praesent non pellentesque ipsum.
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-ridiculus mus.
+.. figure:: ../assets/app_manager.png
+    :scale: 25 %
+    :align: right
 
-Vivamus non ultrices diam. Pellentesque sed ligula neque. Aliquam ultricies
-lacus nec tellus molestie, et scelerisque sapien volutpat. Duis vel varius
-magna. Aliquam auctor vitae nisi in porttitor. Fusce cursus ultricies ero
-non iaculis. Nulla porta tempus pulvinar. Nullam neque dolor, lacinia ac
-dolor quis, maximus commodo sapien. Quisque nec nunc augue. Sed orci nunc,
-molestie eu rutrum convallis, porta eu libero. Phasellus quis iaculis lorem,
-nec sollicitudin leo.
+    Applications Manager
 
-Sed placerat nisl non massa pharetra, nec vulputate leo egestas. Fusce vi
-molestie tortor, fermentum aliquam leo. Aliquam luctus neque ac pellentesque
-tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-rutrum euismod pharetra. In hendrerit fringilla suscipit. Cras ut lacus
-consectetur, lacinia massa a, congue urna. Curabitur venenatis erat volutpat
-commodo vehicula. Etiam consequat lectus arcu, euismod euismod lectus rhoncus
-eu. In hac habitasse platea dictumst. Maecenas faucibus eros risus.
-Pellentesque et felis ipsum. Sed vel dolor tempor dolor blandit consequat.
+The extreme flexibility of FPGA devices in general, and of the µScope platform logic in particular, makes the design of a single unified
+HMI solution that fits all use cases a very hard task. This coupled with the extreme variability of research goals, methodologies and fields
+means that the problem is not only difficult to solve, but also ill defined, making convential UI solutions non viable.
+To tackle this problem the Client is built around the concept of Application. An Application is a specification that ties together all the data
+needed in order to define and take full advantage of the capabilities of the Logic and the target hardware.
+The following components can be included in an application:
 
-Sed malesuada eros quis tortor tempor tincidunt. Fusce accumsan, nisl ut porta
-lacinia, lorem magna ullamcorper turpis, vitae aliquet lorem est quis velit.
-Maecenas sed pulvinar turpis. Donec lobortis tincidunt pharetra. Donec sed
-sollicitudin nunc, rhoncus vehicula lacus. Integer placerat, nulla vel molestie
-mollis, elit sem porttitor dolor, nec faucibus lacus metus quis mi. Sed eu
-vestibulum ligula. Cras viverra cursus orci. In elit nulla, imperdiet
-id justo in, pulvinar rhoncus purus.
+- **Peripherals**: An application will contain informations for one or more instances of a peripheral, defining base address and evenual parameters.
+- **Parameters**: In order to control the target hardware parameters may be defined, each one of them will have an associated input field in the parameters are. Upon submission, the modified parameter values will trigger a script to run
+- **Macros**: A macro provides a way to trigger the run of a script not directly linked with a single parameter
+- **Channels**: Data channels linked with the embedded oscilloscope
+- **Inital Register Values**: Pairs of address and values to be written upon initialization of the application.
 
-Maecenas vel laoreet quam. Vivamus in dignis
+Centerpiece of the Applications infrastructure is the manager, which allows their creation, modification, and removal. In order to facilitate sharing
+between differing setups applications can be imported and exported in a textual format.
 
+.. figure:: ../assets/app_creator.png
+    :scale: 25 %
+
+    Applications Creator
