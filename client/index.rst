@@ -4,6 +4,11 @@
 
 .. image:: ../assets/client_structure.svg
 
+The µScope platform client is the user facing component of the stack, designed for quick and easy implementation of human
+machine interfaces.
+
+
+
 .. _client_layer:
 
 
