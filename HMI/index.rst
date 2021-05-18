@@ -1,5 +1,5 @@
 ========================
-µScope platform client
+HMI Layer
 ========================
 
 .. image:: ../assets/client_structure.svg
@@ -14,7 +14,7 @@ parameters and macros used to control a specific subset of peripherals. Each app
 `/lib/firmware` that implements the required logic. To ease development of HDL logic and application level code, :ref:`peripherals`
 definitions can specify a fixed interface foundation that decouples the two components, granting the maximum freedom possible.
 
-.. _client_layer:
+.. _HMI_layer:
 
 
     .. toctree::

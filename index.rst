@@ -12,8 +12,8 @@ Welcome to µScope's documentation!
     :hidden:
 
     logic/index
-    server/index
-    client/index
+    management/index
+    HMI/index
 
 =============
 Introduction
@@ -48,6 +48,6 @@ client browser as a single page web application.
 In depth layers documentation
 ==============================
 
-* :ref:`fpga_layer`
-* :ref:`server_layer`
-* :ref:`client_layer`
+* :ref:`Control_layer`
+* :ref:`management_layer`
+* :ref:`HMI_layer`

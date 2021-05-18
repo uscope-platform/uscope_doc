@@ -1,14 +1,14 @@
-===========
-FPGA logic
-===========
+===============
+Control Layer
+===============
 
 .. image:: ../assets/logic_structure.svg
 
-.. _fpga_layer:
+.. _control_layer:
 
 .. toctree::
     :maxdepth: 2
-    :caption: FPGA layer
+    :caption: Control layer
 
     Interconnect
     simplebus

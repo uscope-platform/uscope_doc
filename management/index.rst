@@ -1,5 +1,5 @@
 =======================
-µScope platform server
+Management Layer
 =======================
 
 The µScope platform server, referred as server from now on, is the component
@@ -12,14 +12,14 @@ Ethernet connectivity.
 
 .. image:: ../assets/server_structure.svg
 
-
-.. _server_layer:
+.. _management_layer:
 
 .. toctree::
     :maxdepth: 2
-    :caption: Server layer
+    :caption: Management layer
 
-    os_overview
+    platform_overview
+    layer_components
     uscope_driver
     uscope_server
 
