@@ -2,6 +2,9 @@
 Data acquisition and signal processing peripherals
 ====================================================
 
+
+.. _Adc_post_processing:
+
 --------------------
 ADC post-processing
 --------------------
@@ -42,6 +45,8 @@ ADC post-processing
 
 
 
+.. _Decimator:
+
 ----------
 Decimator
 ----------
@@ -64,3 +69,9 @@ Decimator
 
 
 
+.. _multiphase_ref_gen:      
+----------
+Multiphase Reference Generator
+----------
+
+Lorem Ipsum
