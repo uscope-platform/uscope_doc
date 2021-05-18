@@ -20,6 +20,4 @@ Ethernet connectivity.
 
     platform_overview
     layer_components
-    uscope_driver
-    uscope_server
-
+    API_reference
