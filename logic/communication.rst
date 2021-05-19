@@ -39,25 +39,24 @@ I2C
 
     **INPUTS**
 
+
         - **clock**: Main clock input
         - **reset**: Active low synchronous reset input
-        - **sb_address**: Simplebus slave address signal
-        - **sb_read_strobe**: Simplebus slave read_strobe signal
-        - **sb_write_strobe**: Simplebus slave write strobe signal
-        - **sb_write_data**: Simplebus slave write data signal
         - **i2c_scl_in**: I2C SCL input, used in conjunction with an external tristate IO buffer
         - **i2c_sda_in**: I2C SDA input, used in conjunction with an external tristate IO buffer
 
     **OUTPUTS**
 
-        - **sb_ready**: Simplebus slave ready signal
-        - **sb_read_data**: Simplebus slave read data signal
         - **i2c_scl_out**: I2C SCL output, used in conjunction with an external tristate IO buffer
         - **i2c_scl_out_en**: I2C SCL output eable, used to control an external tristate IO buffer
         - **i2c_sda_out**: I2C SDA output, used in conjunction with an external tristate IO buffer
         - **i2c_sda_out_en**: I2C SDA output eable, used to control an external tristate IO buffer
 
 
+    ** INTERFACES **
+
+        - **sb**: Simplebus slave interface for control and configuration
+ 
     **Known compatible parts**
 
         -Silicon labs Si5351 clock generator IC
@@ -74,14 +73,12 @@ SPI
 
 
 
-    This module implements a standard SPI peripheral. The main configuration and control is done through the Simplebus Interface, however
+    This module implements a standard SPI master peripheral. The main configuration and control is done through the Simplebus Interface, however
     once configured the data transfers can also be fully controlled through the external AXI stream interface
 
     .. danger:: The control of the module through the external_transfer_start and external_transfer_length signals is deprecated and will soon be removed
 
     .. image:: ../assets/SPI.svg
-
-    |
 
     The operations of this module are controlled by the Control Unit. This sub-module interfaces to the outside world through the
     Simplebus Interface and controls all other aspects of the core. This also listens on the AXI steam interface and starts transfers
@@ -99,30 +96,25 @@ SPI
 
         - **clock**: Main clock input
         - **reset**: Active low synchronous reset input
-        - **sb_address**: Simplebus slave address signal
-        - **sb_read_strobe**: Simplebus slave read_strobe signal
-        - **sb_write_strobe**: Simplebus slave write strobe signal
-        - **sb_write_data**: Simplebus slave write data signal
-        - **external_transfer_start**: A rising edge on this signal will trigger a transfer
         - **external_transfer_length**: Length of the SPI transfer whenn externally triggered
-        - **MISO**: Master Input Slave Output SPI signal
-        - **SCLK**: Slave Clock SPI signal
+        - **MISO**: SPI Master Input Slave Output signal
         - **SPI_write_valid**: AXI stream slave transfer control interface valid signal
         - **SPI_write_data**: AXI stream slave transfer control interface data signal
 
 
     **OUTPUTS**
 
-        - **sb_ready**: Simplebus slave ready signal
-        - **sb_read_data**: Simplebus slave read data signal
         - **data_valid**: Received data AXI stream master valid signal
         - **data_out**: Received data AXI stream master data signal
-        - **MOSI**: Master Output Slave Input SPI signal
+        - **MOSI**: SPI Master Output Slave Input signal
+        - **SCLK**: SPI Slave Clock signal
+        - **SS**: SPI slave select signal.
         - **SPI_write_ready**: AXI stream slave transfer control interface ready signal
 
-    **TRISTATE IO**
 
-        - **SS**: SPI slave select signal.
+    ** INTERFACES **
+
+        - **sb**: Simplebus slave interface for control and configuration
 
     **Known compatible parts**
 

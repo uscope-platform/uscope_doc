@@ -9,11 +9,13 @@ Control Layer
 .. toctree::
     :maxdepth: 2
     :caption: Control layer
-
-    Interconnect
+   
+    Interfaces
     simplebus
     communication
-    acquisition_signal_processing
+    signal_chain
     controls
+    external_drivers
+    system
 
 

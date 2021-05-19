@@ -1,4 +1,7 @@
 
+===================================
+General System level components
+===================================
 
 .. _enable_gen:
 
@@ -42,3 +45,20 @@ Enable Generator
         :maxdepth: 1
 
         register_maps/controls/enable_generator_regmap
+
+
+-----------------
+fCore
+-----------------
+
+-----------------
+dma_manager
+-----------------
+
+-----------------
+AXI terminator
+-----------------
+
+----------------
+uScope
+----------------
