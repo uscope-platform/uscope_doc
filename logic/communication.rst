@@ -2,6 +2,8 @@
 Communication peripherals
 ==========================
 
+.. _i2c:
+
 ----
 I2C
 ----
@@ -53,7 +55,7 @@ I2C
         - **i2c_sda_out_en**: I2C SDA output eable, used to control an external tristate IO buffer
 
 
-    ** INTERFACES **
+    **INTERFACES**
 
         - **sb**: Simplebus slave interface for control and configuration
  
@@ -73,10 +75,8 @@ SPI
 
 
 
-    This module implements a standard SPI master peripheral. The main configuration and control is done through the Simplebus Interface, however
+    This module implements a Multichannel SPI master peripheral. The main configuration and control is done through the Simplebus Interface, however
     once configured the data transfers can also be fully controlled through the external AXI stream interface
-
-    .. danger:: The control of the module through the external_transfer_start and external_transfer_length signals is deprecated and will soon be removed
 
     .. image:: ../assets/SPI.svg
 
@@ -84,13 +84,15 @@ SPI
     Simplebus Interface and controls all other aspects of the core. This also listens on the AXI steam interface and starts transfers
     as necessary. As in all SPI interfaces the design revolves around a parallel to serial shift register (SPI register here).
     This is directly controlled by the Transfer engine, who controls the transmission length, the timing and polarity of slave select signals,
-    the endianness of transfered data etc. An internal enable generator allows totally standalone periodic transfers operations.
-    The basic timing is derived from the input clock through a prescaler.
+    the endianness of transfered data etc. An internal enable generator allows totally standalone periodic transfers operations. An internal prescaler
+    derives the SCLK signal from  the main clock input.
 
     **PARAMETERS**
 
         - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x43C00000
         - **SS_POLARITY_DEFAULT**: State of the Slave select signals upon reset. Default value 0
+        - **N_CHANNELS**: Number of SPI channels supported by this peripheral. Default value 3
+        - **OUTPUT_WIDTH** Width of the output data AXI stream. Default value 32
 
     **INPUTS**
 
@@ -112,7 +114,7 @@ SPI
         - **SPI_write_ready**: AXI stream slave transfer control interface ready signal
 
 
-    ** INTERFACES **
+    **INTERFACES**
 
         - **sb**: Simplebus slave interface for control and configuration
 
@@ -132,4 +134,5 @@ SPI
 RTCU
 -----
 
-lorem ipsum
+The RTCU family of modules implement a real time communication protocol specifically designed to meet the needs of the power electronics community. 
+Being still under heavy development documentation is provided at this stage.
