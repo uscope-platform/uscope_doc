@@ -1,5 +1,0 @@
-Register name,Field Name,offset (#bit),Description
-CTRL,enabled,0x0 (1),Enable the generator
-PERIOD,Value,0x4 (31:0),Enable period control
-EN_PH_1,Value,0x8 (31:0),Relative phase of the 1st enable signal
-EN_PH_n,Value,0x8+0x4*n (31:0),Relative phase of the nth enable signal
