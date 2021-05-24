@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../uscope_hdl"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "uscope_doc",
+		"files.associations": {
+			"*.svh": "systemverilog"
+		}
+	}
+}

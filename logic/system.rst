@@ -44,7 +44,7 @@ Enable Generator
     .. toctree::
         :maxdepth: 1
 
-        register_maps/controls/enable_generator_regmap
+        register_maps/system/enable_generator_regmap
 
 
 -----------------

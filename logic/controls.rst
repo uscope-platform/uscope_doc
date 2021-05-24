@@ -29,23 +29,23 @@ PWM Generator
 
         - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x43C00000
         - **COUNTER_WIDTH**: Width of the pwm generator counter. Default value 16
+        - **INITIAL_STOPPED_STATE**: State of the PWM output when the generator is not configured and/or stopped
 
     **INPUTS**
 
         - **clock**: Main clock input
         - **reset**: Active low synchronous reset input
-        - **sb_address**: Simplebus slave address signal
-        - **sb_read_strobe**: Simplebus slave read_strobe signal
-        - **sb_write_strobe**: Simplebus slave write strobe signal
-        - **sb_write_data**: Simplebus slave write data signal
         - **ext_timebase**: External timebase input
-
+        - **fault**: Fault input, when set to high the pwm generator is stopped and the output status set to the default value
+  
     **OUTPUTS**
 
-        - **sb_ready**: Simplebus slave ready signal
-        - **sb_read_data**: Simplebus slave read data signal
         - **timebase**: Timebase output
         - **pwm_out**: PWM signals output
+
+    **INTERFACES**
+
+        - **sb**: Simplebus slave interface for control and configuration
 
     .. toctree::
         :maxdepth: 1
@@ -112,7 +112,13 @@ PID
     |
 
     This block implemnets a Simplebus conrolled PID controller. AXI stream interfaces are used for all
-    the data inputs and outputs. The integrator implements a clamping anti-windup mechanism.
+    the data inputs and outputs. All configurations can be performed through the Simplebus Interface.
+    The proportional, integral and derivative gains are implemented as fractional fixed integer numbers.
+    To reduce area consumption the denominator is implemented as left shift, rather than division or multiplication 
+    by the reciprocal, restricting the choice of values to only integer powers of two.
+    Due to the limited range of 16 bit fixed integer values the integrator is substituted with a simple accumulator consequently,
+    to achieve the correct system response, all gains need to be scaled by the sampling period.
+    Configurable saturators are available on both the output and integrator internal state, to avoid the wind-up phenomenon.
 
     **PARAMETERS**
 
@@ -124,25 +130,14 @@ PID
 
         - **clock**: Main clock input
         - **reset**: Active low synchronous reset input
-        - **sb_address**: Simplebus slave address signal
-        - **sb_read_strobe**: Simplebus slave read_strobe signal
-        - **sb_write_strobe**: Simplebus slave write strobe signal
-        - **sb_write_data**: Simplebus slave write data signal
-        - **reference**: Reference AXI Stream slave data signal
-        - **reference_valid**: Reference AXI Stream slave valid signal
-        - **feedback**: Feedback AXI Stream slave data signal
-        - **feedback_valid**: Feedback AXI Stream slave valid signal
-        - **out_ready**: output AXI Stream master ready signal
-
-    **OUTPUTS**
-
-        - **sb_ready**: Simplebus slave ready signal
-        - **sb_read_data**: Simplebus slave read data signal
-        - **reference_ready**: Reference AXI Stream slave ready signal
-        - **feedback_ready**: Feedback AXI Stream slave ready signal
-        - **out_valid**: output AXI Stream master valid signal
-        - **PID_out**: output AXI Stream master data signal
-
+    
+    **INTERFACES**
+        - **reference**: AXI stream slave reference signal
+        - **feedback**: AXI stream slave feedback signal
+        - **out**: AXI stram master output signal
+        - **error_mon** AXI stream master Error output (usefull for monitoring Controller tuning
+        - **sb** Simplebus slave interface for configuration and control
+        
     .. toctree::
         :maxdepth: 1
 
@@ -172,18 +167,14 @@ GPIO
 
         - **clock**: Main clock input
         - **reset**: Active low synchronous reset input
-        - **sb_address**: Simplebus slave address signal
-        - **sb_read_strobe**: Simplebus slave read_strobe signal
-        - **sb_write_strobe**: Simplebus slave write strobe signal
-        - **sb_write_data**: Simplebus slave write data signal
         - **gpio_i**: GPIO input port
 
     **OUTPUTS**
 
-        - **sb_ready**: Simplebus slave ready signal
-        - **sb_read_data**: Simplebus slave read data signal
         - **gpio_o**: GPIO output port
 
+    **INTERFACES**
+        - **sb** Simplebus slave interface for configuration and control
 
     .. toctree::
         :maxdepth: 1
@@ -197,7 +188,26 @@ GPIO
 Phase Reconstructor
 --------------------
 
-    Lorem Ipsum
+    This module reconstructs the n-th phase waveform from a set of n-1 samples for a symmetric set of waveforms by enforcing the algebraic
+    sum of the set to be zero. The output of this module is an AXI stream where the missing quantity is transmitted following the other (n-1).
+
+    **PARAMETERS**
+    
+    - **N_PHASES**: Number of phases in the overall set (including the missing one)
+    - **MISSING_PHASE**: Index of the missing phase 
+    - **DATA_PATH_WIDTH**: Width of the data path in bits
+    - **TARGET_ADDRESS**: Address of the generated RTCU transaction
+
+    **INPUTS**
+
+    - **clock**: Main clock input
+    - **reset**: Active low synchronous reset input
+    - **enable**: Module enable
+
+    **INTERFACES**
+    - **phases_in** AXI stream input to the module
+    - **phases_out**: AXI stream output of the module
+
 
 .. _edge_aligner:
 
@@ -205,4 +215,30 @@ Phase Reconstructor
 Edge Aligner
 --------------------
 
-    Lorem Ipsum
+    .. warning:: This block is specific to a set of hardware, consequently only minimal documentation is provvided
+
+    This module performs all the calculations necessary to configure the pwm generator to produce a set of signals with 
+    an asymmetric deadtime to compensate for specific gate driver problems.
+
+    **PARAMETERS**
+
+        - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x0
+        - **PWM_GENERATOR_ADDRESS**: Address of the target pwn generator on the Simplebus output. Default value 0
+
+    **INPUTS**
+
+        - **clock**: Main clock input
+        - **reset**: Active low synchronous reset input
+
+    **OUTPUTS**
+
+        - **disconnect_output**: Signal used for Fault emulation
+
+    **INTERFACES**
+        - **sb_in** Slave simplebus used for both configuration, control and runtime data
+        - **sb_out** Master simplebus interface to the target PWM generator
+
+    .. toctree::
+        :maxdepth: 1
+
+        register_maps/controls/edge_aligner_regmap
