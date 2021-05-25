@@ -90,7 +90,7 @@ SPI
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
         - **SS_POLARITY_DEFAULT**: State of the Slave select signals upon reset. Default value 0
         - **N_CHANNELS**: Number of SPI channels supported by this peripheral. Default value 3
         - **OUTPUT_WIDTH** Width of the output data AXI stream. Default value 32

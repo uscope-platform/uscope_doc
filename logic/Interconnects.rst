@@ -109,7 +109,7 @@ ROM
     This utility module implements a Simplebus connecter read only memory area.
     
     **PARAMETERS**
-    - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43c00000
+    - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43c00000
 
     **INPUTS**
 
@@ -255,7 +255,7 @@ Constant
 
     **PARAMETERS**
 
-    - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
+    - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
     - **CONSTANT_WIDTH**: Width of the output axi stream data signal. Default value 32
 
     **INPUTS**
@@ -373,7 +373,7 @@ Limiter
 
     **PARAMETERS**
 
-    - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
+    - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
 
     **INPUTS**
 

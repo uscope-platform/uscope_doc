@@ -26,7 +26,7 @@ PWM Generator
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
         - **COUNTER_WIDTH**: Width of the pwm generator counter. Default value 16
         - **INITIAL_STOPPED_STATE**: State of the PWM output when the generator is not configured and/or stopped
 
@@ -68,7 +68,7 @@ Transform Acceleration Unit
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
 
     **INPUTS**
 
@@ -118,7 +118,7 @@ PID
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
         - **INPUT_DATA_WIDTH**: Width of the input data bus. Default value 12
         - **OUTPUT_DATA_WIDTH**: Width of the output data bus. Default value 16
 
@@ -155,7 +155,7 @@ GPIO
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
         - **INPUT_WIDTH**: Width of the input port. Default value 8
         - **OUTPUT_WIDTH**: Width of the output port. Default value 8
 
@@ -216,7 +216,7 @@ Edge Aligner
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x0
+        - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x0
         - **PWM_GENERATOR_ADDRESS**: Address of the target pwn generator on the Simplebus output. Default value 0
 
     **INPUTS**
