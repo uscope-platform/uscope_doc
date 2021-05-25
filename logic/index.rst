@@ -1,6 +1,6 @@
-===============
+################
 Control Layer
-===============
+################
 
 .. image:: ../assets/logic_structure.svg
 
@@ -11,7 +11,7 @@ Control Layer
     :caption: Control layer
    
     Interfaces
-    simplebus
+    Interconnects
     communication
     signal_chain
     controls

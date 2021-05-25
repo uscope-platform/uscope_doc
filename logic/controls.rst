@@ -1,11 +1,11 @@
-====================
+**************************
 Control peripherals
-====================
+**************************
 
 
---------------
+================
 PWM Generator
---------------
+================
 
     .. image:: ../assets/PwmGenerator.svg
 
@@ -53,9 +53,9 @@ PWM Generator
 
 
 
-----------------------------
+================================
 Transform Acceleration Unit
-----------------------------
+================================
 
     .. image:: ../assets/TAU.svg
 
@@ -97,9 +97,9 @@ Transform Acceleration Unit
         register_maps/controls/tau_regmap
 
 
-----
+====
 PID
-----
+====
 
     .. warning:: The derivative action in this controller has not yet been implemented
 
@@ -142,11 +142,11 @@ PID
 
 
 
------
+========
 GPIO
------
+========
 
-    .. image:: ../assets/GPIO.svg
+    .. ima==ge:: ../assets/GPIO.svg
 
     |
 
@@ -178,9 +178,9 @@ GPIO
         register_maps/controls/gpio_regmap
 
 
---------------------
+======================
 Phase Reconstructor
---------------------
+======================
 
     This module reconstructs the n-th phase waveform from a set of n-1 samples for a symmetric set of waveforms by enforcing the algebraic
     sum of the set to be zero. The output of this module is an AXI stream where the missing quantity is transmitted following the other (n-1).
@@ -205,9 +205,9 @@ Phase Reconstructor
 
 
 
---------------------
+======================
 Edge Aligner
---------------------
+======================
 
     .. warning:: This block is specific to a set of hardware, consequently only minimal documentation is provvided
 

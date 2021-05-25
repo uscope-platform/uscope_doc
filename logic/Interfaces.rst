@@ -1,6 +1,6 @@
-============================
-Interconnects and Interfaces 
-============================
+******************************
+Interfaces 
+******************************
 
 
 The backbone of any complex system on chip design is undoubtedly the interconnect system that stiches together
@@ -14,9 +14,9 @@ To keep the implementation of the control layer modules clear and concise, wide 
 avoid the need of specifying the connection signals of the interconnection BUS every time.
 
 
------------
+========
 AXI
------------
+========
 
 One of the industry wide standard interconnect families is ARM's AMBA, used in all designs including ARM processing
 cores and IP blocks. The most popular specification from this family is the AXI (Advanced eXtensible Interface), which
@@ -89,10 +89,9 @@ add a large amount of unecessary complexity, and their use should be avoided whe
         - **master**: Master side connection
         - **slave**: Slave side connection
 
-
----------
+======================
 AXI lite
----------
+======================
 
 AXI lite is a subset of the full AXI interconnect, it is usefull when a memory mapped register interface is needed without the complexity
 of the complete protocol, its limitations include:
@@ -127,9 +126,9 @@ This protocol should be used whenever possible in place of the full variant sinc
 - **master**: Master side connection
 - **slave**: Slave side connection
 
------------
+========
 APB
------------
+========
 
 A second type of interconnect, from the same family, used to connect lower bandwidth peripherals is the
 APB (Advanced Peripheral Bus). Its design is much simpler, with a bus topology, and a much smaller feature set with a much lower
@@ -156,9 +155,9 @@ of conversion ip compatible with the previously mentioned AXI bus, avoiding the 
 - **slave**: Slave side connection
 
 
------------
+============
 AXI stream
------------
+============
 
 AXI stream is a protocol from the AMBA family targeted to streaming data transfer applications. It sports a unidirectional data flow with
 limited control flow and side-channel informations.
@@ -184,10 +183,9 @@ limited control flow and side-channel informations.
         - **slave**: Slave side connection
 
 
-
-----------
+=============
 Simplebus
-----------
+=============
 
 The large majority of the implemented components use this custom interconnect interface, It has an equivalent feature set with
 respect to APB, and it is heavily influenced by the altera Avalon bus (of which is a loose subset), a bidirectional bridge towards

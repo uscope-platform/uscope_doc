@@ -1,11 +1,13 @@
-==========================
+**************************
 Communication peripherals
-==========================
+**************************
 
 
-----
+.. _i2c:
+
+====
 I2C
-----
+====
 
     This module implements a standard I2C master interface.Since the main design goal is configuration and control of external
     integrated circuits, the implementation is not complete and only few features listed below have been worked on.
@@ -68,9 +70,9 @@ I2C
         register_maps/communications/I2C_regmap
 
 
-----
+====
 SPI
-----
+====
 
 
 
@@ -129,9 +131,9 @@ SPI
 
 
 
------
+======
 RTCU
------
+======
 
 The RTCU family of modules implement a real time communication protocol specifically designed to meet the needs of the power electronics community. 
 Being still under heavy development documentation is provided at this stage.

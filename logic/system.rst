@@ -1,13 +1,13 @@
 
-===================================
+*********************************
 General System level components
-===================================
+*********************************
 
 .. _enable_gen:
 
------------------
+======================
 Enable Generator
------------------
+======================
 
     .. image:: ../assets/Enable_gen.svg
 
@@ -47,18 +47,21 @@ Enable Generator
         register_maps/system/enable_generator_regmap
 
 
------------------
+======================
 fCore
------------------
+======================
 
------------------
+======================
 dma_manager
------------------
+======================
+This module can be used to initialize and operate a Xilinx AXI DMA IP in order to allow completely autonomous data trasnfer from an AXI stream,
+to the main external system memory (DDR3 DRAM) without any involvement by the processor cores, that are only notified of a completed transaction
+through an interrupt.
 
------------------
+======================
 AXI terminator
------------------
+======================
 
-----------------
+======================
 uScope
-----------------
+======================

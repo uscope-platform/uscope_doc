@@ -1,11 +1,11 @@
-====================================================
+****************************************************
 Data acquisition and signal processing peripherals
-====================================================
+****************************************************
 
 
---------------------
+======================
 ADC post-processing
---------------------
+======================
 
     .. image:: ../assets/ADCprocessing.svg
     
@@ -44,9 +44,9 @@ ADC post-processing
 
         register_maps/acquisition_signal_processing/adc_processing_regmap
 
-------------------------------
+======================
 Standard decimator
-------------------------------
+======================
 
     This module is used to downsample an incoming input stream, by means of simple decimation. Since no image rejection filtering is
     performed, this approach can only be applied on properly band-limited signals to avoid the aliasign phenomenon. In addition to 
@@ -70,9 +70,9 @@ Standard decimator
         - **data_out**: AXI stream master interface for decimated output data
 
 
---------------------
+======================
 Filtering Decimator
---------------------
+======================
 
     .. warning:: The tuning of the CIC and FIR filters is complex and highly application specific, the use of this module is only advised when strictly necessary to deal with aliasing problems.
 
@@ -97,9 +97,9 @@ Filtering Decimator
         - **data_out_tvalid**: output AXI stream master valid signal
 
 
-----------------------------------
+============================================
 Multiphase Reference Generator
-----------------------------------
+============================================
 
 
     This block implements a Direct Digital Synthesis (DDS) circuit that can be used to generate a set of sinusoids with arbitrary phase relationships
