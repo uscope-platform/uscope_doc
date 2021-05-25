@@ -19,7 +19,7 @@ ADC post-processing
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
         - **DATA_PATH_WIDTH**: Width of the data path. Default value 16
         - **DECIMATED**: Set to 0 for no decimation, set to 1 for standatd decimation, set to 2 for CIC/FIR decimation
         - **ENABLE_AVERAGE**: enable standard decimator averaging mode
@@ -109,7 +109,7 @@ Multiphase Reference Generator
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
         - **DATA_PATH_WIDTH**: Width of the data path. Default value 16
         - **N_PHASES**: Number of output phases
       

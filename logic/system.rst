@@ -21,7 +21,7 @@ Enable Generator
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x43C00000
+        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x43C00000
         - **COUNTER_WIDTH**: Width of the enable generator counter. Default value 32
 
     **INPUTS**
