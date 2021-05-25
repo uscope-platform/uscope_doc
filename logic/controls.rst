@@ -99,8 +99,6 @@ Transform Acceleration Unit
         register_maps/controls/tau_regmap
 
 
-.. _pid:
-
 ----
 PID
 ----

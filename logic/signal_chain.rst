@@ -3,8 +3,6 @@ Data acquisition and signal processing peripherals
 ====================================================
 
 
-.. _Adc_post_processing:
-
 --------------------
 ADC post-processing
 --------------------
@@ -46,11 +44,41 @@ ADC post-processing
 
         register_maps/acquisition_signal_processing/adc_processing_regmap
 
+------------------------------
+Standard decimator
+------------------------------
+
+    This module is used to downsample an incoming input stream, by means of simple decimation. Since no image rejection filtering is
+    performed, this approach can only be applied on properly band-limited signals to avoid the aliasign phenomenon. In addition to 
+    straight 1 in n samples decimation averaging can also be used to enhance the output stream resolution.
+
+    **PARAMETERS**
+
+        - **MAX_DECIMATION_RATIO**: Maximum supported decimation ratio. Default value 
+        - **DATA_WIDTH**: Width of the data path. Default value 16
+        - **AVERAGING**: Set to 1 to enable averaging mode
+
+    **INPUTS**
+
+        - **clock**: Main clock input
+        - **reset**: Active low synchronous reset input
+        - **decimation_ratio**: Dynamic decimation ratio input
+
+    **INTERFACES**
+
+        - **data_in**: AXI stream slave interface for raw input data
+        - **data_out**: AXI stream master interface for decimated output data
 
 
-----------
-Decimator
-----------
+--------------------
+Filtering Decimator
+--------------------
+
+    .. warning:: The tuning of the CIC and FIR filters is complex and highly application specific, the use of this module is only advised when strictly necessary to deal with aliasing problems.
+
+    This module contains a filtering decimator, due to it's frequency characteristic it can be used on any input signal without aliasing.
+    It is implemented as a CIC and FIR filter series, where the first provvides the bulk of attenuation while the second compensates
+    its non-ideal frequenct characteristic.
 
     .. image:: ../assets/Decimator.svg
 
@@ -61,13 +89,12 @@ Decimator
         - **clock**: Main clock input
         - **data_in_tdata**: input AXI stream slave data signal
         - **data_in_tvalid**: input AXI stream slave valid signal
-
+        
     **OUTPUTS**
 
         - **data_in_tready**: input AXI stream slave ready signal
         - **data_out_tdata**: output AXI stream master data signal
         - **data_out_tvalid**: output AXI stream master valid signal
-
 
 
 .. _multiphase_ref_gen:      
@@ -82,7 +109,7 @@ Multiphase Reference Generator
     the Simplebus interface following the classic textbox relationships used for DDS synthesisers. A  monitoring angle output is provided 
     that always reports the currently in use angle (either taken from the input or self generated) for simplicity.
 
-**PARAMETERS**
+    **PARAMETERS**
 
         - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x43C00000
         - **DATA_PATH_WIDTH**: Width of the data path. Default value 16
