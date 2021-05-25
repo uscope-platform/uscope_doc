@@ -97,8 +97,6 @@ Filtering Decimator
         - **data_out_tvalid**: output AXI stream master valid signal
 
 
-.. _multiphase_ref_gen:      
-
 ----------------------------------
 Multiphase Reference Generator
 ----------------------------------

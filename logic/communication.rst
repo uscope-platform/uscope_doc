@@ -2,7 +2,6 @@
 Communication peripherals
 ==========================
 
-.. _i2c:
 
 ----
 I2C

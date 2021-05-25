@@ -2,7 +2,6 @@
 Control peripherals
 ====================
 
-.. _pwm_gen:
 
 --------------
 PWM Generator
@@ -53,7 +52,6 @@ PWM Generator
         register_maps/controls/pwm_gen_regmap
 
 
-.. _tau:
 
 ----------------------------
 Transform Acceleration Unit
@@ -142,7 +140,7 @@ PID
         register_maps/controls/pid_regmap
 
 
-.. _gpio:
+
 
 -----
 GPIO
@@ -180,8 +178,6 @@ GPIO
         register_maps/controls/gpio_regmap
 
 
-.. _phase_reconstructor:
-
 --------------------
 Phase Reconstructor
 --------------------
@@ -207,7 +203,7 @@ Phase Reconstructor
     - **phases_out**: AXI stream output of the module
 
 
-.. _edge_aligner:
+
 
 --------------------
 Edge Aligner
