@@ -216,7 +216,7 @@ Edge Aligner
 
     **PARAMETERS**
 
-        - **BASE_ADDRESS**:Base address for the Sipmplebus interface. Default value 0x0
+        - **BASE_ADDRESS**: Base address for the Sipmplebus interface. Default value 0x0
         - **PWM_GENERATOR_ADDRESS**: Address of the target pwn generator on the Simplebus output. Default value 0
 
     **INPUTS**
