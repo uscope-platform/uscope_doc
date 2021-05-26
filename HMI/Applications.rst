@@ -29,3 +29,78 @@ that make sense for the specific use case and associated FPGA bitstream, along w
 This information is compiled in a self-contained dictionary that is managed by the lower layers. Upon startup, the user will choose the desired application, allowing the UI to be configured to show the correct information.
 To Allow the creation and management of user applications, along with all their components, several management pages are also provided that enable quick and easy creation, update and removal of all the aforementioned components.
 Extensive importing and exporting options are also available for easy migration of all data between platforms.
+
+
+----------------------------
+Channel Group Specification
+----------------------------
+
+- **name**: Name of the channel group (after creation it can be edited by double clicking the name in the creator)
+- **ID**: String used internally to identify the channel group throughout the UI
+- **Content**: list of channel IDs contained in this group. (A maximum of six channels can be added to each group)
+- **Default group**: Set the current group as the default one selected when the application is launched. (only one group can be default at a time)
+
+-----------------------
+Channel specification
+-----------------------
+
+
+- **name**: Name of the channel (after creation it can be edited by double clicking the name in the creator)
+- **ID**: String used internally to identify the channel throughout the UI
+- **channel number**: Zero based integer indicating which hardware scope channel the data stream is connected To
+- **mux setting**: Address setting of the mux that is needed to connect the data stream to the scope inputs
+- **physical width**: Width in bits of the data stream coming from the hardware ( to indicate an unsigned data strean add 100 to the width, so a value of 16 would indicate a signed 16 bit integer while a value of 116 would indicate a 16 bit unsigned integer)
+- **Max value**: This field is not used and will be removed in a future release
+- **Min value**: This field is not used and will be removed in a future release
+  
+
+---------------------
+Registers
+---------------------
+
+- **Address**: Address of the register to write to
+- **value**: Value to write to the register
+
+--------------------
+Events
+--------------------
+
+- **Name**: Name of the event
+- **Trigger**: String used to associate the event with the corresponding script
+
+--------------------
+Parameters
+--------------------
+
+- **name**: Name of the parameter (after creation it can be edited by double clicking the name in the creator)
+- **ID**: String used internally to identify the parameter throughout the UI and in script
+- **Trigger**: String used to associate the parameter with the corresponding script
+- **value**: default value of the parameter
+- **Visible**: Boolean option that controls whether the parameter is visible to the user or if it is only usefull in scrips
+
+--------------------
+Peripheral
+--------------------
+
+- **name**: Name of the peripheral (after creation it can be edited by double clicking the name in the creator)
+- **ID**: String used internally to identify the peripheral throughout the UI and in script
+- **Peripheral specification**: ID of the peripheral specification implemented by this peripheral 
+- **Base Address**: Base address of this peripheral on the bus
+- **Type**: Unused field, will be removed in a future release
+- **Proxied peripheral**: Boolean option specifying whether the peripheral can be directly acessed or if a proxy needs to be used
+- **Proxy address**: Address of the proxy used to access the preripheral
+- **Proxy type**: Type of proxy used to acess the peripheral
+- **user accessible**: Boolean option specifying whether a custom register view is accessible to the users
+
+---------------------
+Miscelaneous fields
+---------------------
+
+- **Application name**: Name of this application
+- **Bitstream**: Name of the bitstream associated to this application
+- **Clock frequency**: Frequency of the main FPGA clock
+- **default core address**: Address of the femtocore processor
+- **default core program**: ID of the program to load on the default femtocore at startup
+- **n_enables**: Unused field, will be removed in a future release
+- **scope_mux_address**: Base address of the uScope mux controller
+- **timebase address**:Unused field, will be removed in a future release
