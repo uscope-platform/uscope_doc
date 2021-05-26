@@ -18,12 +18,18 @@ allowing execution at near native speed.
 .. code-block:: javascript
 
   function function_name(parameter, context){
+
     let registers = {};
     let workspace = {};
     /////////////////////////////
     //     USER CODE HERE      //
     /////////////////////////////
+    let existing_workspace_variable = cotnext.workspace.['existing_workspace_variable']
+    
+    workspace['new_workspace_variable_name'] = 42;
+    register['peripheral_id.register_id'] = 10;
 
+  
     return {workspace:workspace, registers:registers};
   }
 
