@@ -3,8 +3,7 @@ HMI Layer
 ========================
 
 .. image:: ../assets/client_structure.svg
-
-
+    :alt: µScope stack structure with client layer highlight
 
 
 At the top of the whole µScope platform stack sits the client, this components allows interactions with the rest of the stack,
@@ -17,20 +16,20 @@ definitions can specify a fixed interface foundation that decouples the two comp
 .. _HMI_layer:
 
 
-    .. toctree::
-        :maxdepth: 2
-        :caption: User Documentation
+.. toctree::
+    :maxdepth: 2
+    :caption: User Documentation
 
-        Applications
-        Peripherals
-        scripting
-
-
-    .. toctree::
-        :maxdepth: 2
-        :caption: Internal architecture
+    Applications
+    Peripherals
+    scripting
 
 
-        react_components
-        redux_store
+.. toctree::
+    :maxdepth: 2
+    :caption: Internal architecture
+
+
+    react_components
+    redux_store
 

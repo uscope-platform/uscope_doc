@@ -6,7 +6,7 @@ Peripherals
 ================
 
 .. figure:: ../assets/peripherals_manager.png
-    :scale: 25 %
+    :scale: 30%
     :align: right
 
     Peripheral Manager
@@ -16,9 +16,3 @@ fill exactly this role. Their main function is to define the register maps for t
 all the registers reachable for the bus. As for the Applications, Manager and creator views are provvided to allow easy peripheral definitions.
 
 An Peripheral diagram is also required, this image is usefull to give an idea at a glance of how the internal structure of the IP is constructed.
-
-
-.. figure:: ../assets/periph_creator.png
-    :scale: 25 %
-
-    Peripheral Creator

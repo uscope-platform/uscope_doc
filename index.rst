@@ -28,7 +28,7 @@ in the hardware debug, test and validation phases.
 
 
 .. image:: assets/structure.svg
-
+    :alt: µScope stack structure
 
 The highly modular architecture allows the tool to be easily retargettable;
 despite the high level of vertical integration, each layer in the stack is
