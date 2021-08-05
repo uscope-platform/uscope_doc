@@ -7,7 +7,7 @@ The implementation of control systems can usually be reduced to the solution of 
 and provided that all required data is made available by the rest of the system, the processing core's
 only responsibility is to perform a series of arithmetic and logic operations in order to obtain
 the required control action.
-To take     advantage of this characteristic of the application, A custom instruction set (ISA) 
+To take advantage of this characteristic of the application, A custom instruction set (ISA) 
 and processor core has been specifically designed in order to allow the implementation of the control
 system calculations as software, while retaining a fully deterministic execution.
 
@@ -90,20 +90,34 @@ instructions, at the expense of program size. Named variables are also supported
 
 .. warning:: The femtoCore is a strictly floating point processor, whithout support for integer arithmetic, while all values in the fpga are encoded as fixed point integers, unless otherwise specified. The programmer should take care of integer to float conversion before inputs are used and of float to integer before the program conclusion. If real quantities (as opposed to per-unit) are needed the appropriate conversion should also be performed.
 
+The program management view allows creation update and deletion of programs and related metadata. Each program, apart from the content is identified through the following
+information:
+
+- **ID**: Numeric integer value automatically maanged by the system that uniquely identifies each script
+- **name**: User friendly identifier string
+- **type**: Field indicating the programming language used for this program: assembly (asm) or C 
+
 ----------------------
 Femtocore programming
 ----------------------
+
+Two possible programming languages at different levels are available through the femtoCore toolchain.
+
+- **Assembly**
+- **C Language**
+
+^^^^^^^^^
+Assembly
+^^^^^^^^^
 
 The a first step in the programming of a femtoCore embedded dsp, is the definition of the desired control techniques that needs to be expressed
 either as an equation or as a control diagram. Then these need to be broken up into a series of elementary operations (additions, multiplications, shifts, saturations, etc),
 starting from the inputs (The integrator state from previous evaluations can be treated as an input at this step) and progressing toward the desired control outputs,
 while also updating all integrator's state. The resulting list of instruction can now be trivially translated to femtoCore assembly.
 
-
-
--------------------------
+^^^^^^^^^^^^^^^^
 Program example
--------------------------
+^^^^^^^^^^^^^^^^
 
 The following code listing shows a the femtocore implementation of a PI controller, the error input word is found in register r1, while the output is expected in register r15
 The code 
@@ -169,3 +183,12 @@ The code
     ldc r6, 65535.0
     mul r15, r6, r15   //duty cycle 16bit
     fti r15, r15 // Convert from float to integer
+
+
+
+^^^^^^^^^^
+C Language
+^^^^^^^^^^
+
+.. warning:: SECTION UNDER CONSTRUCTION
+

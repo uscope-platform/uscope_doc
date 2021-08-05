@@ -33,8 +33,6 @@ allowing execution at near native speed.
     return {workspace:workspace, registers:registers};
   }
 
-
-
 Each script is constituted by a single javascript function that gets called when needed. two inputs are passed to the function, the first is a numeric field that 
 contains the value of the parameter that automatically triggered the script (it is undefined for manually triggered ones) and a context object, containig values for
 other parameters and the workspace. This last elements is itself an object that is common among all user scripts and can be used to share data and variables
