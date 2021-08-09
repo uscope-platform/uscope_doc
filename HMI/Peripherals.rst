@@ -8,8 +8,9 @@ Peripherals
 .. figure:: ../assets/peripherals_manager.png
     :scale: 30%
     :align: right
+    :alt: Peripherals manager screenshot
 
-    Peripheral Manager
+    Peripherals Manager
 
 The decoupling of Logic HDL and upstream software development requires the definition of a set of a fixed interface to build upon. The Peripheral
 fill exactly this role. Their main function is to define the register maps for the logic IP to which it refers, defining names, types and offsets of

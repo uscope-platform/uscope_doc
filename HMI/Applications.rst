@@ -8,6 +8,7 @@ Applications
 .. figure:: ../assets/app_manager.png
     :scale: 30%
     :align: right
+    :alt: Applications Manager screenshot
 
     Applications Manager
 

@@ -1,7 +1,10 @@
 ========================
-Programs
+femtoCore
 ========================
 
+----------
+Rationale
+----------
 
 The implementation of control systems can usually be reduced to the solution of one or more equations, 
 and provided that all required data is made available by the rest of the system, the processing core's
@@ -10,12 +13,6 @@ the required control action.
 To take advantage of this characteristic of the application, A custom instruction set (ISA) 
 and processor core has been specifically designed in order to allow the implementation of the control
 system calculations as software, while retaining a fully deterministic execution.
-
-
-.. figure:: ../assets/programs_manager.png
-    :scale: 30%
-    :align: right
-
 
 ----------
 ISA
@@ -77,47 +74,68 @@ From a physical perspective all instructions have a very similar structure with 
 |     SATN     |     17     |     Unary       |     Saturate in a negative direction     | dest ← A>lim ? A : lim |
 +--------------+------------+-----------------+------------------------------------------+------------------------+
 
---------------------
-femtoCore Assembler
---------------------
+---------------------
+femtoCore Programming
+---------------------
 
-The extreme simplicity of the architecture, coupled with the arithmetic nature
-of the code typically required in control applications, and use of external DMA transfers for IO,
-makes this architecture the perfect candidate for direct high level assembly programming. To simplify
-the development experience, several concepts from higher level languages are supported by the assembler.
-Bounded loops are available through unrolling, even when the underlying architecture does not have branch 
-instructions, at the expense of program size. Named variables are also supported, allowing the use of descriptive names instead of registers.
-
-.. warning:: The femtoCore is a strictly floating point processor, whithout support for integer arithmetic, while all values in the fpga are encoded as fixed point integers, unless otherwise specified. The programmer should take care of integer to float conversion before inputs are used and of float to integer before the program conclusion. If real quantities (as opposed to per-unit) are needed the appropriate conversion should also be performed.
 
 The program management view allows creation update and deletion of programs and related metadata. Each program, apart from the content is identified through the following
 information:
+
 
 - **ID**: Numeric integer value automatically maanged by the system that uniquely identifies each script
 - **name**: User friendly identifier string
 - **type**: Field indicating the programming language used for this program: assembly (asm) or C 
 
+.. figure:: ../assets/programs_manager.png
+    :scale: 30%
+    :align: right
+    :alt: Programs manager screenshot
+    
+    Programs Manager
+    
 ----------------------
 Femtocore programming
 ----------------------
 
+
 Two possible programming languages at different levels are available through the femtoCore toolchain.
+
+
 
 - **Assembly**
 - **C Language**
 
-^^^^^^^^^
+.. warning:: The femtoCore is a strictly floating point processor, whithout support for integer arithmetic, while all values in the fpga are encoded as fixed point integers, unless otherwise specified. The programmer should take care of integer to float conversion before inputs are used and of float to integer before the program conclusion. If real quantities (as opposed to per-unit) are needed the appropriate conversion should also be performed.
+
+^^^^^^^^^^^
 Assembly
-^^^^^^^^^
+^^^^^^^^^^^
 
-The a first step in the programming of a femtoCore embedded dsp, is the definition of the desired control techniques that needs to be expressed
-either as an equation or as a control diagram. Then these need to be broken up into a series of elementary operations (additions, multiplications, shifts, saturations, etc),
-starting from the inputs (The integrator state from previous evaluations can be treated as an input at this step) and progressing toward the desired control outputs,
-while also updating all integrator's state. The resulting list of instruction can now be trivially translated to femtoCore assembly.
+The assembly language is a direct translation of the machine code run by the processor and as such it gives the programmer the greates amount of control possible
+over how and when the code is executed, at the expense of a more tedious and less intuitive programming experinece with respect to higher level languages.
+In an effort to offset these downsides few high level features are made available to the programmer by the assembler:
 
-^^^^^^^^^^^^^^^^
-Program example
-^^^^^^^^^^^^^^^^
+- **unrolled for loops:** While the lack of branching support from the core and the unavailability of arrays in the assembler limit the usefullness of loop constructs, the assembler supprots unrollable loops (those whith a known number of iterations). In assembly programming they can be used to insert no operations (nops) in the program to control its execution timing.
+- **variables and register aliases:** To simplify program development the assembler supports the use of aliases to give register names that are more meaningful to the targeted application. Full blown variables are also supported by the assembler, which performs lifetime analysis and then allocates registers accordingly.
+- **Floating point litterals:** Floating point constants can be directly used with the "ldc" instruction. They will be converted to the closest floating point value by the assembler.
+
+When programming a femtoCore DSP with the assembly language the following steps can be followed:
+
+1. Definition of the desired control technique as a control diagram.
+2. Breakdown of all complex blocks to elementary operations supported by the core.
+3. Assignment of registers to inputs, outputs and memory elements (i.e. integrators).
+4. Reused constant loading (if enough registers are available)
+5. Translation of the control diagram to a program listing starting from known quantities (inputs and memories) and working towards the outputs
+
+The constants necessary to the calculation (gains, sampling times, saturation points, etc.) can be either loaded upfront to an assigned memory register, or 
+they can be dynamically loaded each time they are needed. The first option results in a faster runtime (if the constant is used more than once per program) and improved code density at 
+the expense of a larger pressure on registers. Just in time loading instead trades speed and code density out for better memory efficiency, as no registers are expressly allocated to hold constant 
+values.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Assembly Program example
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following code listing shows a the femtocore implementation of a PI controller, the error input word is found in register r1, while the output is expected in register r15
 The code 
@@ -190,5 +208,66 @@ The code
 C Language
 ^^^^^^^^^^
 
-.. warning:: SECTION UNDER CONSTRUCTION
+For a simpler and more pleasant program development experience a C compiler is also part of the femtoCore toolchain, allowing 
+a relatively high level language to be used. Given the stringent limitation imposed by the peculiar femtoCore architecture only
+a strict subset of the language is supported, as many constructs are not implementable. 
 
+
+Supported features:
+
+
+- All hardware supported C language operators
+- Intrinsic functions exposing advanced fCore features
+- looping support (unrollable loops only)
+- compile time conditionals
+- Input and outputs register pinning for DMA I/O
+
+Non Supported features:
+
+- postfix increment/decrement
+- Pointers
+- Non inlinable function calls
+- while loops
+- do-while loops
+- goto statements
+- structures, unions and enums
+- typedefs4
+
+^^^^^^^^^^^^^^^^^^^^^^^^^
+C Program example
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: C
+
+    #pragma input(error_in, r1)
+    int i_error_in;
+
+    #pragma memory(integral_memory, r5)
+    float integral_memory;
+
+    float i_error = itf(i_error_in)*0.01304; //  0.01304 bit to ampere conversion factor and integer to float conversion
+    
+    float proportional_action = 0.4*i_error;
+
+    integral_memory = integral_memory + (i_error*5)*0.0001;
+
+    integral_memory = satp(integral_memory, 24.5);  // POSITIVE SATURATION
+    integral_memory = satn(integral_memory,-24.5); // NEGATIVE SATURATION
+
+
+    float pi_action = integral_memory + proportional_action;
+
+    pi_action = satp(pi_action, 24.5);
+    pi_action = satn(pi_action,-24.5);
+
+    const float v_dc = 50;
+
+    float duty_cycle_f = pi_action/v_dc;
+
+    float duty_cycle_f = pi_action/v_dc;
+
+    float duty_cycle_norm = duty_cycle_norm*65535.0; // Duty cycle normalized to 16 bits
+
+    #pragma output(out, r15)
+    int out = fti(duty_cycle_norm);

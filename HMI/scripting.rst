@@ -5,6 +5,7 @@ Scripting
 .. figure:: ../assets/script_manager.png
     :scale: 30%
     :align: right
+    :alt: Applications manager screenshot
 
     Applications Manager
 
