@@ -69,9 +69,11 @@ From a physical perspective all instructions have a very similar structure with 
 +--------------+------------+-----------------+------------------------------------------+------------------------+
 |     NOT      |     15     |     Unary       |     Logical not between two registers    | dest ← A | B           |
 +--------------+------------+-----------------+------------------------------------------+------------------------+
-|     SATP     |     16     |     Unary       |     Saturate in a positive direction     | dest ← A<lim ? A : lim |
+|     SATP     |     16     |     Binary      |     Saturate in a positive direction     | dest ← A<B ? A : B     |
 +--------------+------------+-----------------+------------------------------------------+------------------------+
-|     SATN     |     17     |     Unary       |     Saturate in a negative direction     | dest ← A>lim ? A : lim |
+|     SATN     |     17     |     Binary      |     Saturate in a negative direction     | dest ← A>B ? A : B     |
++--------------+------------+-----------------+------------------------------------------+------------------------+
+|     REC      |     18     |     Unary       |     Reciptrocal of a register            | dest ← 1 / A           |
 +--------------+------------+-----------------+------------------------------------------+------------------------+
 
 ---------------------
