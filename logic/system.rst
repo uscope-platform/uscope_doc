@@ -7,7 +7,7 @@ General System level components
 AXI terminator
 ======================
 
-This utility modules is used to terminate an enabled AXI interface correctly responding to transactions to avoid hanging the bus.
+This utility module is used to terminate a processor AXI interface correctly responding to transactions to avoid hanging the bus.
 
 **INPUTS**
 
@@ -22,7 +22,7 @@ This utility modules is used to terminate an enabled AXI interface correctly res
 dma_manager
 ======================
 
-This module can be used to initialize and operate a Xilinx AXI DMA IP in order to allow completely autonomous data trasnfer from an AXI stream,
+This module can be used to initialize and operate a Xilinx AXI DMA IP in order to allow completely autonomous data transfer from an AXI stream,
 to the main external system memory (DDR3 DRAM) without any involvement by the processor cores, that are only notified of a completed transaction
 through an interrupt.
 
@@ -40,12 +40,12 @@ through an interrupt.
 - **start_dma**: This signal triggers the start of the DMA process.
 - **dma_done**: Signal indicating the completion of a DMA transfer.
 - **transfer_size**: Size of the DMA transfer to perform
-- **buffer_base_address**: Base address of of the buffer to transfer the data to
+- **buffer_base_address**: Base address of the buffer to transfer the data to
 
 **OUTPUTS**
 
-- **m00_axi_error**: flag indicating an axi interface error
-- **m00_axi_txn_done**: flag indicating the completion of an axi transaction
+- **m00_axi_error**: flag indicating an AXI interface error
+- **m00_axi_txn_done**: flag indicating the completion of an AXI transaction
 
 **INTERFACES**
 
@@ -64,16 +64,16 @@ Enable Generator
 
     |
 
-    This templated block implements an enable generator with and arbitrary number of output signals.
+    This templated block implements an enable signals generator with and arbitrary number of output signals.
     It is implemented as a simple up counter that feeds a battery of compare registers.
     Each one of them has two modes of operation, clock and trigger mode, in the first one the comparator
     output will be high from the match to the end of the cycle, in trigger mode the output is only pulsed
-    on and of for a single clock cycle.
+    on and off for a single clock cycle.
 
     **PARAMETERS**
 
         - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
-        - **COUNTER_WIDTH**: Width of the enable generator counter. Default value 32
+        - **COUNTER_WIDTH**: Width of the enable signals generator counter. Default value 32
 
     **INPUTS**
 
@@ -131,7 +131,7 @@ femtoCore (fCore)
 
 - **sb**: Simplebus slave Interface for configuration and control of the uScope control unit
 - **axi**: AXI interface to the instruction store for femtoCore programming
-- **axis_dma**: AXI stream interface garanting direct write address to the core registers
+- **axis_dma**: AXI stream interface granting direct write address to the core registers
 
 ======================
 uScope

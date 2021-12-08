@@ -52,7 +52,7 @@ This API implements the on screen oscilloscope feature,
 
 .. http:get:: /plot/capture
 
-    return the previously captured data    
+    return the previously captured data
 
 .. http:post:: /plot/capture
 

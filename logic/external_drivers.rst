@@ -9,9 +9,9 @@ External Drivers
 AD2S1210
 ===========
 
-This modules acts as a "driver" handling the Analog Devices AD2S1210 (and similar) resolver to digital (RDC) converters, largely abstacing away their complexity.
+This module acts as a "driver" handling the Analog Devices AD2S1210 (and similar) resolver to digital (RDC) converters, largely abstracting away their complexity.
 A read of both speed and angle values can be simply triggered through a rising edge on the *read_speed* and *read_angle* input, with the result being presented on the
-*data_out* axi stream. The Simplebus interface allows the configuration of the RDC internal registers and the clearing of eventual faults.
+*data_out* AXI stream. The Simplebus interface allows the configuration of the RDC internal registers and the clearing of eventual faults.
 
 
 **PARAMETERS**
@@ -53,7 +53,7 @@ SI5351
 =========
 
 This module handles, in conjunction with an instance of the :ref:`I2C` module, the configuration of the Silicon Labs Si5351 clock generator IC.
-The configuration to be written to the device is stored in a hardcoded map, requiring recompilation to vary the clock generator paraneters.
+The configuration to be written to the device is stored in a hard-coded map, requiring recompilation to vary the clock generator parameters.
 
 
 **PARAMETERS**

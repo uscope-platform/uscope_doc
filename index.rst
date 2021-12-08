@@ -1,9 +1,9 @@
-.. µScope documentation master file, created by
+.. uPlatform documentation master file, created by
    sphinx-quickstart on Thu Dec 26 16:17:19 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to µScope's documentation!
+Welcome to uPlatform's documentation!
 ==================================
 
 .. toctree::
@@ -19,7 +19,7 @@ Welcome to µScope's documentation!
 Introduction
 =============
 
-µScope is a full stack control solution for power electronics research
+uPlatform is a full stack control solution for power electronics research
 and development.
 The aim of the project is to allow standalone research in the field of control
 theory for both machine drive and grid connected applications.
@@ -28,7 +28,7 @@ in the hardware debug, test and validation phases.
 
 
 .. image:: assets/structure.svg
-    :alt: µScope stack structure
+    :alt: uPlatform stack structure
 
 The highly modular architecture allows the tool to be easily retargettable;
 despite the high level of vertical integration, each layer in the stack is

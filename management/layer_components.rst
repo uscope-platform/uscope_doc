@@ -10,16 +10,16 @@ Nginx Frontend
 
 
 The topmost component of the server software stack is an instance of the `Nginx <https://www.nginx.com/>`_ server.
-On one hand, if necessary, it can serve all the necessary static files, in order to achieve fully self contained 
+On one hand, if necessary, it can serve all the necessary static files, in order to achieve fully self-contained 
 operation without the need for any installation procedure on the client side. On the other, it acts as a reverse 
-proxy transferring all REST API calls to the appropriate server. This componment acts also as a TLS terminating proxy 
-that encrypts and decripts all data going to and coming from the client. 
+proxy transferring all REST API calls to the appropriate server. This component acts also as a TLS terminating proxy 
+that encrypts and describes all data going to and coming from the client. 
 
 It should be noted that the TLS certificate used in these operations can not be issued by a standard public Certificate Authority (CA),
-as these require a static internet facing IP and a registered domain name for verification, while the µScope platform is intended 
-to be deployed in mostly private and possibly airgapped networks. A private CA, whose certificate needs to be installed by each user, is generated
-during the commissioning process and then used to sign the server certificate. To minimize the risk of leaks the CA private key, this is deleated
-after use, making it very difficult for an attacker to use it to spoof legitimate websited on client machines.
+as these require a static internet facing IP and a registered domain name for verification, while the uPlatform is intended 
+to be deployed in mostly private and possibly air-gapped networks. A private CA, whose certificate needs to be installed by each user, is generated
+during the commissioning process and then used to sign the server certificate. To minimize the risk of leaks the CA private key, this is deleted
+after use, making it very difficult for an attacker to use it to spoof legitimate websites on client machines.
 
 -------------------------
  REST API server
@@ -31,9 +31,6 @@ along with the `flask-restful <https://flask-restful.readthedocs.io/en/latest/>`
 to handle all the low level networking details, while various `blueprints <https://flask.palletsprojects.com/en/1.1.x/blueprints/>`_
 implement all the required API. As `advised <https://flask.palletsprojects.com/en/1.1.x/deploying/>`_ from the flask team, the server
 has been deployed on top of an instance of the gunicorn WSGI HTTP server to allow multiple concurrent requests.
-
-To compile femtoCore programs a python extension is generated through the `pybind11 <https://pybind11.readthedocs.io/en/stable/index.html>`_ 
-module effectively embedding the full fCore_HAS assembler in the server itself.
 
 --------------------------
 Userspace Driver

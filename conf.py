@@ -19,7 +19,7 @@ sys.path.append(os.path.abspath("./_ext"))
 
 # -- Project information -----------------------------------------------------
 
-project = 'µScope'
+project = 'uPlatform'
 copyright = '2019, Filippo Savi'
 author = 'Filippo Savi'
 

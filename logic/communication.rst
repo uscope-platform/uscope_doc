@@ -9,7 +9,7 @@ Communication peripherals
 I2C
 ====
 
-    This module implements a standard I2C master interface.Since the main design goal is configuration and control of external
+    This module implements a standard I2C master interface. Since the main design goal is configuration and control of external
     integrated circuits, the implementation is not complete and only few features listed below have been worked on.
 
         - 100 kbit/s standard mode only
@@ -17,7 +17,7 @@ I2C
         - 7 bit addressing only
         - Write support only
 
-    The fundamental operation of the core is the register write operation, this is a 2 bytes write operation where the first byte
+    The fundamental operation of the core is the register write operation, a 2 bytes write operation where the first byte
     represents the register address and the second one the value to be set.
 
     .. image:: ../assets/I2C.svg
@@ -38,7 +38,7 @@ I2C
 
         - **FIXED_PERIOD**:Enables fixed period mode. Default value "FALSE"
         - **FIXED_PERIOD_WIDTH**: This parameter controls the SCL frequency when fixed period mode is enabled. Default value 1000
-        - **SCL_TIMEBASE_DELAY**: This parameter controls the amount of delay in clock cycles between the timebase edge and the output scl edge 15
+        - **SCL_TIMEBASE_DELAY**: This parameter controls the amount of delay in clock cycles between the timebase edge and the output SCL edge 15
 
     **INPUTS**
 
@@ -81,11 +81,11 @@ SPI
 
     .. image:: ../assets/SPI.svg
 
-    The operations of this module are controlled by the Control Unit. This sub-module interfaces to the outside world through the
+    The operations of this module are controlled by the Control Unit. This submodule interfaces to the outside world through the
     Simplebus Interface and controls all other aspects of the core. This also listens on the AXI steam interface and starts transfers
     as necessary. As in all SPI interfaces the design revolves around a parallel to serial shift register (SPI register here).
     This is directly controlled by the Transfer engine, who controls the transmission length, the timing and polarity of slave select signals,
-    the endianness of transfered data etc. An internal enable generator allows totally standalone periodic transfers operations. An internal prescaler
+    the endianness of transferred data etc. An internal enable generator allows totally standalone periodic transfers operations. An internal prescaler
     derives the SCLK signal from  the main clock input.
 
     **PARAMETERS**
@@ -93,13 +93,13 @@ SPI
         - **BASE_ADDRESS**: Base address for the Simplebus interface. Default value 0x43C00000
         - **SS_POLARITY_DEFAULT**: State of the Slave select signals upon reset. Default value 0
         - **N_CHANNELS**: Number of SPI channels supported by this peripheral. Default value 3
-        - **OUTPUT_WIDTH** Width of the output data AXI stream. Default value 32
+        - **OUTPUT_WIDTH**: Width of the output data AXI stream. Default value 32
 
     **INPUTS**
 
         - **clock**: Main clock input
         - **reset**: Active low synchronous reset input
-        - **external_transfer_length**: Length of the SPI transfer whenn externally triggered
+        - **external_transfer_length**: Length of the SPI transfer when externally triggered
         - **MISO**: SPI Master Input Slave Output signal
         - **SPI_write_valid**: AXI stream slave transfer control interface valid signal
         - **SPI_write_data**: AXI stream slave transfer control interface data signal
@@ -122,7 +122,7 @@ SPI
     **Known compatible parts**
 
         - Analog Devices AD2S1210 Resolver to digital converter
-        - Analog Devices LTC2313 Analog to Digtal converter
+        - Analog Devices LTC2313 Analog to digital converter
 
     .. toctree::
         :maxdepth: 1

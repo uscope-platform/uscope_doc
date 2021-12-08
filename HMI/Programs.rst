@@ -85,9 +85,9 @@ The program management view allows creation update and deletion of programs and 
 information:
 
 
-- **ID**: Numeric integer value automatically maanged by the system that uniquely identifies each script
+- **ID**: Numeric integer value automatically managed by the system that uniquely identifies each script
 - **name**: User friendly identifier string
-- **type**: Field indicating the programming language used for this program: assembly (asm) or C 
+- **type**: Field indicating the programming language used for this program: assembly (ASM) or C 
 
 .. figure:: ../assets/programs_manager.png
     :scale: 30%
@@ -114,13 +114,13 @@ Two possible programming languages at different levels are available through the
 Assembly
 ^^^^^^^^^^^
 
-The assembly language is a direct translation of the machine code run by the processor and as such it gives the programmer the greates amount of control possible
-over how and when the code is executed, at the expense of a more tedious and less intuitive programming experinece with respect to higher level languages.
+The assembly language is a direct translation of the machine code run by the processor and as such it gives the programmer the greatest amount of control possible
+over how and when the code is executed, at the expense of a more tedious and less intuitive programming experience with respect to higher level languages.
 In an effort to offset these downsides few high level features are made available to the programmer by the assembler:
 
-- **unrolled for loops:** While the lack of branching support from the core and the unavailability of arrays in the assembler limit the usefullness of loop constructs, the assembler supprots unrollable loops (those whith a known number of iterations). In assembly programming they can be used to insert no operations (nops) in the program to control its execution timing.
-- **variables and register aliases:** To simplify program development the assembler supports the use of aliases to give register names that are more meaningful to the targeted application. Full blown variables are also supported by the assembler, which performs lifetime analysis and then allocates registers accordingly.
-- **Floating point litterals:** Floating point constants can be directly used with the "ldc" instruction. They will be converted to the closest floating point value by the assembler.
+- **unrolled for loops:** While the lack of branching support from the core and the unavailability of arrays in the assembler limit the usefulness of loop constructs, the assembler supports unrollable loops (those with a known number of iterations). In assembly programming they can be used to insert no operations (nops) in the program to control its execution timing.
+- **variables and register aliases:** To simplify program development the assembler supports the use of aliases to give register names that are more meaningful to the targeted application. Full-blown variables are also supported by the assembler, which performs lifetime analysis and then allocates registers accordingly.
+- **Floating point literals:** Floating point constants can be directly used with the "ldc" instruction. They will be converted to the closest floating point value by the assembler.
 
 When programming a femtoCore DSP with the assembly language the following steps can be followed:
 
@@ -139,7 +139,7 @@ values.
 Assembly Program example
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following code listing shows a the femtocore implementation of a PI controller, the error input word is found in register r1, while the output is expected in register r15
+The following code listing shows the femtocore implementation of a PI controller, the error input word is found in register r1, while the output is expected in register r15
 The code 
 
 

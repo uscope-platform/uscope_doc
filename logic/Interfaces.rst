@@ -93,7 +93,7 @@ add a large amount of unecessary complexity, and their use should be avoided whe
 AXI lite
 ======================
 
-AXI lite is a subset of the full AXI interconnect, it is usefull when a memory mapped register interface is needed without the complexity
+AXI lite is a subset of the full AXI interconnect, it is useful when a memory mapped register interface is needed without the complexity
 of the complete protocol, its limitations include:
 
 - Full bus width transfer only
@@ -133,18 +133,18 @@ APB
 A second type of interconnect, from the same family, used to connect lower bandwidth peripherals is the
 APB (Advanced Peripheral Bus). Its design is much simpler, with a bus topology, and a much smaller feature set with a much lower
 complexity in the connected modules, and a smaller footprint overall. Another advantage of this bus is the availability
-of conversion ip compatible with the previously mentioned AXI bus, avoiding the need to interface directly with it.
+of conversion IP compatible with the previously mentioned AXI bus, avoiding the need to interface directly with it.
 
 
 **SIGNALS**
 
 - **PADDR**:  APB transfer address
-- **PPROT**: APB protection signal, indicating wether the transaction is secure or not
+- **PPROT**: APB protection signal, indicating whether the transaction is secure or not
 - **PSEL**: APB select signal, indicates whether the slave is selected, and a transaction is needed
 - **PENABLE**: APB enable signal, indicates the second and following cycles of a transaction
 - **PWRITE**: APB direction signal, LOW for a read and HIGH for a write transaction
 - **PWDATA**: APB write data bus, driven by the master
-- **PSTRB**: APB byte strobe signals, indicates which bytes should be transfered
+- **PSTRB**: APB byte strobe signals, indicates which bytes should be transferred
 - **PREADY**: APB ready signal, driven low by a slave to extend a transaction
 - **PRDATA**: APB read data bus, driven by the slave
 - **PSLVERR**: APB Slave error, indicates a failure in the transaction
@@ -160,7 +160,7 @@ AXI stream
 ============
 
 AXI stream is a protocol from the AMBA family targeted to streaming data transfer applications. It sports a unidirectional data flow with
-limited control flow and side-channel informations.
+limited control flow and side-channel information.
 
     **PARAMETERS**
 
